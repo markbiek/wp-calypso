@@ -19,6 +19,8 @@ interface Props {
 	paymentPartner?: string;
 	selected?: boolean;
 	isExpired?: boolean;
+	postalCode: string;
+	countryCode: string;
 }
 
 const PaymentMethodDetails: FunctionComponent< Props > = ( {
@@ -29,6 +31,8 @@ const PaymentMethodDetails: FunctionComponent< Props > = ( {
 	email,
 	paymentPartner,
 	isExpired,
+	postalCode,
+	countryCode,
 } ) => {
 	const translate = useTranslate();
 	const moment = useLocalizedMoment();
@@ -76,6 +80,8 @@ const PaymentMethodDetails: FunctionComponent< Props > = ( {
 					</span>
 				) }
 				<span className="payment-method-details__name">{ name }</span>
+				<span className="payment-method-details__postal-code">Postal Code: { postalCode }</span>
+				<span className="payment-method-details__country-code">Country Code: { countryCode }</span>
 			</div>
 		</>
 	);

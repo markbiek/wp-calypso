@@ -71,7 +71,7 @@
 	}
 }
 
-.payment-method-details__name {
+.payment-method-details__name, .payment-method-details__postal-code, .payment-method-details__country-code {
 	color: var( --color-neutral-50 );
 	display: block;
 	font-size: 0.875rem;

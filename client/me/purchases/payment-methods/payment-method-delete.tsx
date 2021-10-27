@@ -67,6 +67,17 @@ const PaymentMethodDelete: FunctionComponent< Props > = ( { card } ) => {
 				onClose={ closeDialog }
 				onConfirm={ handleDelete }
 			/>
+			<PaymentMethodDetails
+				lastDigits={ card.card }
+				email={ card.email }
+				cardType={ card.card_type || '' }
+				paymentPartner={ card.payment_partner }
+				name={ card.name }
+				expiry={ card.expiry }
+				isExpired={ card.is_expired }
+				postalCode={ card.meta[ 5 ].meta_value }
+				countryCode={ card.meta[ 0 ].meta_value }
+			/>
 			{ renderDeleteButton() }
 		</>
 	);
