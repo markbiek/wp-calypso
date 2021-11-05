@@ -49,8 +49,8 @@ export const editStoredCardTaxLocation = ( card ) => ( dispatch ) => {
 					path: '/me/payment-methods/' + stored_details_id + '/edit-tax-location',
 				},
 				{
-					card_zip: '10001',
-					country_code: 'CA',
+					tax_postal_code: '10001',
+					tax_country_code: 'CA',
 				}
 			)
 		)
