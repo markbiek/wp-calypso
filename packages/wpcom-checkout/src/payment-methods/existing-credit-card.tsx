@@ -50,6 +50,8 @@ export function createExistingCardMethod( {
 				cardExpiry={ cardExpiry }
 				cardholderName={ cardholderName }
 				brand={ brand }
+				// postalCode={ postalCode }
+				// countryCode={ countryCode }
 			/>
 		),
 		submitButton: (
@@ -88,11 +90,15 @@ function ExistingCardLabel( {
 	cardExpiry,
 	cardholderName,
 	brand,
-}: {
+}: // postalCode,
+// countryCode,
+{
 	last4: string;
 	cardExpiry: string;
 	cardholderName: string;
 	brand: string;
+	postalCode: string;
+	countryCode: string;
 } ): JSX.Element {
 	const { __, _x } = useI18n();
 
@@ -108,6 +114,10 @@ function ExistingCardLabel( {
 			</div>
 			<div className="existing-credit-card__logo payment-logos">
 				<PaymentLogo brand={ brand } isSummary={ true } />
+				<br />
+				<span>Postal Code: { 'postalCode' }</span>
+				<br />
+				<span>Country Code: { 'countryCode' }</span>
 			</div>
 		</Fragment>
 	);

@@ -34,6 +34,8 @@ export interface PaymentMethodMeta {
 	meta_key: string;
 	meta_value: string;
 	stored_details_id: string;
+	is_expired?: boolean;
+	meta: any;
 }
 
 export const isPaymentAgreement = ( method: PaymentMethod ): boolean =>

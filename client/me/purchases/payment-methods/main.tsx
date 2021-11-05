@@ -22,9 +22,10 @@ function PaymentMethods(): JSX.Element {
 			<MeSidebarNavigation />
 			<FormattedHeader
 				brandFont
+				hasScreenOptions
 				headerText={ titles.sectionTitle }
 				subHeaderText={ translate(
-					'Add or delete payment methods for your account. {{learnMoreLink}}Learn more{{/learnMoreLink}}.',
+					'Add, edit, or delete payment methods for your account. {{learnMoreLink}}Learn more{{/learnMoreLink}}.',
 					{
 						components: {
 							learnMoreLink: (

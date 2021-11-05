@@ -10,6 +10,7 @@ import { isCreditCard } from 'calypso/lib/checkout/payment-methods';
 import PaymentMethod from 'calypso/me/purchases/payment-methods/payment-method';
 import PaymentMethodBackupToggle from 'calypso/me/purchases/payment-methods/payment-method-backup-toggle';
 import PaymentMethodDelete from 'calypso/me/purchases/payment-methods/payment-method-delete';
+import PaymentMethodEdit from 'calypso/me/purchases/payment-methods/payment-method-edit';
 import {
 	getAllStoredCards,
 	getUniquePaymentAgreements,

@@ -24,10 +24,10 @@ interface Props {
 }
 
 const PaymentMethodDetails: FunctionComponent< Props > = ( {
-	cardType,
-	expiry,
 	lastDigits,
+	cardType,
 	name,
+	expiry,
 	email,
 	paymentPartner,
 	isExpired,
@@ -80,8 +80,12 @@ const PaymentMethodDetails: FunctionComponent< Props > = ( {
 					</span>
 				) }
 				<span className="payment-method-details__name">{ name }</span>
-				<span className="payment-method-details__postal-code">Postal Code: { postalCode }</span>
-				<span className="payment-method-details__country-code">Country Code: { countryCode }</span>
+				<span className="payment-method-details__postal-code">
+					Postal Code: <span>{ postalCode }</span>
+				</span>
+				<span className="payment-method-details__country-code">
+					Country Code: <span>{ countryCode }</span>
+				</span>
 			</div>
 		</>
 	);

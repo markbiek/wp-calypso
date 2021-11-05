@@ -2,6 +2,9 @@ import i18n from 'i18n-calypso';
 import wp from 'calypso/lib/wp';
 import {
 	STORED_CARDS_ADD_COMPLETED,
+	STORED_CARDS_EDIT,
+	STORED_CARDS_EDIT_COMPLETED,
+	STORED_CARDS_EDIT_FAILED,
 	STORED_CARDS_DELETE,
 	STORED_CARDS_DELETE_COMPLETED,
 	STORED_CARDS_DELETE_FAILED,
@@ -29,6 +32,31 @@ export const addStoredCard = ( cardData ) => ( dispatch ) => {
 			dispatch( {
 				type: STORED_CARDS_ADD_COMPLETED,
 				item,
+			} );
+		} );
+};
+
+export const editStoredCardTaxLocation = ( card ) => ( dispatch ) => {
+	dispatch( {
+		type: STORED_CARDS_EDIT,
+	} );
+
+	return Promise.all(
+		card.allStoredDetailsIds.map( ( storedDetailsId ) =>
+			wp.req.post( { path: '/me/stored-cards/' + storedDetailsId + '/edit-tax-location' } )
+		)
+	)
+		.then( () => {
+			dispatch( {
+				type: STORED_CARDS_EDIT_COMPLETED,
+				card,
+			} );
+		} )
+		.catch( ( error ) => {
+			dispatch( {
+				type: STORED_CARDS_EDIT_FAILED,
+				card,
+				error: error.message || i18n.translate( 'There was a problem editing the stored card.' ),
 			} );
 		} );
 };
