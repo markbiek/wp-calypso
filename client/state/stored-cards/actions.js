@@ -39,11 +39,20 @@ export const addStoredCard = ( cardData ) => ( dispatch ) => {
 export const editStoredCardTaxLocation = ( card ) => ( dispatch ) => {
 	dispatch( {
 		type: STORED_CARDS_EDIT,
+		card,
 	} );
 
 	return Promise.all(
-		card.allStoredDetailsIds.map( ( storedDetailsId ) =>
-			wp.req.post( { path: '/me/stored-cards/' + storedDetailsId + '/edit-tax-location' } )
+		card.allStoredDetailsIds.map( ( stored_details_id ) =>
+			wp.req.post(
+				{
+					path: '/me/payment-methods/' + stored_details_id + '/edit-tax-location',
+				},
+				{
+					card_zip: '10001',
+					country_code: 'CA',
+				}
+			)
 		)
 	)
 		.then( () => {

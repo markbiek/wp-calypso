@@ -22,7 +22,6 @@ function PaymentMethods(): JSX.Element {
 			<MeSidebarNavigation />
 			<FormattedHeader
 				brandFont
-				hasScreenOptions
 				headerText={ titles.sectionTitle }
 				subHeaderText={ translate(
 					'Add, edit, or delete payment methods for your account. {{learnMoreLink}}Learn more{{/learnMoreLink}}.',
@@ -35,6 +34,7 @@ function PaymentMethods(): JSX.Element {
 					}
 				) }
 				align="left"
+				hasScreenOptions
 			/>
 			<PurchasesNavigation section="paymentMethods" />
 			<PaymentMethodList addPaymentMethodUrl={ getAddNewPaymentMethodPath() } />

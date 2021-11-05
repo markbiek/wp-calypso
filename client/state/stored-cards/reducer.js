@@ -115,6 +115,8 @@ export const isFetching = ( state = false, action ) => {
 export const isEditing = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case STORED_CARDS_EDIT:
+			console.log( 'Reducer isEditing state:' );
+			console.log( state );
 			return {
 				...state,
 				[ action.card.stored_details_id ]: true,

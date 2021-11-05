@@ -17,6 +17,8 @@ export const storedCardsSchema = {
 			remember: { type: 'string' },
 			stored_details_id: { type: 'string' },
 			user_id: { type: 'string' },
+			card_zip: { type: 'string' },
+			country_code: { type: 'string' },
 		},
 	},
 	additionalProperties: false,
