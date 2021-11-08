@@ -36,11 +36,30 @@ export const addStoredCard = ( cardData ) => ( dispatch ) => {
 		} );
 };
 
-export const editStoredCardTaxLocation = ( card ) => ( dispatch ) => {
+export const editStoredCardTaxLocation = ( card, tax_postal_code, tax_country_code ) => (
+	dispatch
+) => {
 	dispatch( {
 		type: STORED_CARDS_EDIT,
 		card,
 	} );
+
+	// const renderTaxPostalCode = () => {
+	// 	const filtered = card.meta.find(
+	// 		( item: { meta_key } ) => item.meta_key === 'tax_postal_code'
+	// 	);
+	// 	return filtered?.meta_value ?? '';
+	// };
+
+	// const renderTaxCountryCode = () => {
+	// 	const filtered = card.meta.find(
+	// 		( item: { meta_key } ) => item.meta_key === 'tax_country_code'
+	// 	);
+	// 	return filtered?.meta_value ?? '';
+	// };
+
+	// console.log( 'editStoredCardTaxLocation:' );
+	// console.log( card );
 
 	return Promise.all(
 		card.allStoredDetailsIds.map( ( stored_details_id ) =>
@@ -49,8 +68,8 @@ export const editStoredCardTaxLocation = ( card ) => ( dispatch ) => {
 					path: '/me/payment-methods/' + stored_details_id + '/edit-tax-location',
 				},
 				{
-					tax_postal_code: '10001',
-					tax_country_code: 'CA',
+					tax_postal_code: tax_postal_code,
+					tax_country_code: tax_country_code,
 				}
 			)
 		)

@@ -29,6 +29,20 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	const [ isDialogVisible, setIsDialogVisible ] = useState( false );
 	const closeDialog = useCallback( () => setIsDialogVisible( false ), [] );
 
+	const renderTaxPostalCode = (): string => {
+		const filtered = card.meta.find(
+			( item: { meta_key: string } ) => item.meta_key === 'tax_postal_code'
+		);
+		return filtered?.meta_value ?? '';
+	};
+
+	const renderTaxCountryCode = (): string => {
+		const filtered = card.meta.find(
+			( item: { meta_key: string } ) => item.meta_key === 'tax_country_code'
+		);
+		return filtered?.meta_value ?? '';
+	};
+
 	const handleEdit = useCallback( () => {
 		closeDialog();
 		reduxDispatch( editStoredCardTaxLocation( card ) )
@@ -45,20 +59,6 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				reduxDispatch( errorNotice( error.message ) );
 			} );
 	}, [ closeDialog, card, translate, reduxDispatch ] );
-
-	const renderTaxPostalCode = (): string => {
-		const filtered = card.meta.find(
-			( item: { meta_key: string } ) => item.meta_key === 'tax_postal_code'
-		);
-		return filtered?.meta_value ?? '';
-	};
-
-	const renderTaxCountryCode = (): string => {
-		const filtered = card.meta.find(
-			( item: { meta_key: string } ) => item.meta_key === 'tax_country_code'
-		);
-		return filtered?.meta_value ?? '';
-	};
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing…' ) : translate( 'Add Payment Location Info' );
@@ -83,10 +83,13 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 					type: card.card_type || card.payment_partner,
 					digits: card.card,
 					email: card.email,
+					tax_postal_code: renderTaxPostalCode(),
+					tax_country_code: renderTaxCountryCode(),
 				} ) }
 				isVisible={ isDialogVisible }
 				onClose={ closeDialog }
 				onConfirm={ handleEdit }
+				card={ card }
 			/>
 			<PaymentMethodDetails
 				lastDigits={ card.card }
