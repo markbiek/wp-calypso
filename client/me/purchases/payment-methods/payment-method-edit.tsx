@@ -50,6 +50,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 
 	const handleEdit = useCallback( () => {
 		closeDialog();
+
 		reduxDispatch(
 			editStoredCardTaxLocation( card, inputValues.tax_postal_code, inputValues.tax_country_code )
 		)
@@ -59,8 +60,10 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				} else {
 					reduxDispatch( successNotice( translate( 'Card edited successfully!' ) ) );
 				}
-
 				recordTracksEvent( 'calypso_purchases_edit_tax_location' );
+			} )
+			.then( () => {
+				window.location.reload();
 			} )
 			.catch( ( error: Error ) => {
 				reduxDispatch( errorNotice( error.message ) );

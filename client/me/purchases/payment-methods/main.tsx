@@ -34,7 +34,6 @@ function PaymentMethods(): JSX.Element {
 					}
 				) }
 				align="left"
-				hasScreenOptions
 			/>
 			<PurchasesNavigation section="paymentMethods" />
 			<PaymentMethodList addPaymentMethodUrl={ getAddNewPaymentMethodPath() } />
