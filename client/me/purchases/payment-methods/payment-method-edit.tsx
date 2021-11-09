@@ -43,9 +43,16 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		return filtered?.meta_value ?? '';
 	};
 
+	const [ inputValues, setInputValues ] = useState( {
+		tax_postal_code: '',
+		tax_country_code: '',
+	} );
+
 	const handleEdit = useCallback( () => {
 		closeDialog();
-		reduxDispatch( editStoredCardTaxLocation( card ) )
+		reduxDispatch(
+			editStoredCardTaxLocation( card, inputValues.tax_postal_code, inputValues.tax_country_code )
+		)
 			.then( () => {
 				if ( isPaymentAgreement( card ) ) {
 					reduxDispatch( successNotice( translate( 'Payment method edited successfully' ) ) );
@@ -58,7 +65,46 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 			.catch( ( error: Error ) => {
 				reduxDispatch( errorNotice( error.message ) );
 			} );
-	}, [ closeDialog, card, translate, reduxDispatch ] );
+	}, [
+		closeDialog,
+		card,
+		inputValues.tax_postal_code,
+		inputValues.tax_country_code,
+		translate,
+		reduxDispatch,
+	] );
+
+	const handleSubmit = ( event ) => {
+		event.preventDefault();
+		const { name, value } = event.target;
+		setInputValues( { ...inputValues, [ name ]: value } );
+		handleEdit();
+	};
+
+	const renderEditForm = () => {
+		return (
+			<form onSubmit={ handleSubmit }>
+				<input
+					type="text"
+					name="tax_postal_code"
+					placeholder="Enter postal code"
+					value={ inputValues.tax_postal_code }
+					onChange={ ( e ) =>
+						setInputValues( { ...inputValues, tax_postal_code: e.target.value } )
+					}
+				/>
+				<input
+					type="text"
+					name="tax_country_code"
+					placeholder="Enter country code"
+					value={ inputValues.tax_country_code }
+					onChange={ ( e ) =>
+						setInputValues( { ...inputValues, tax_country_code: e.target.value } )
+					}
+				/>
+			</form>
+		);
+	};
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing…' ) : translate( 'Add Payment Location Info' );
@@ -83,13 +129,12 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 					type: card.card_type || card.payment_partner,
 					digits: card.card,
 					email: card.email,
-					tax_postal_code: renderTaxPostalCode(),
-					tax_country_code: renderTaxCountryCode(),
 				} ) }
 				isVisible={ isDialogVisible }
 				onClose={ closeDialog }
-				onConfirm={ handleEdit }
+				onConfirm={ handleSubmit }
 				card={ card }
+				form={ renderEditForm() }
 			/>
 			<PaymentMethodDetails
 				lastDigits={ card.card }
