@@ -110,7 +110,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	};
 
 	const renderEditButton = () => {
-		const text = isEditing ? translate( 'Editing…' ) : translate( 'Add Payment Location Info' );
+		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
 		if ( ! renderTaxPostalCode() ) {
 			return (
 				<Button
