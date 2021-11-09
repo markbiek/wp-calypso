@@ -24,7 +24,7 @@ function PaymentMethods(): JSX.Element {
 				brandFont
 				headerText={ titles.sectionTitle }
 				subHeaderText={ translate(
-					'Add, edit, or delete payment methods for your account. {{learnMoreLink}}Learn more{{/learnMoreLink}}.',
+					'Add or delete payment methods for your account. {{learnMoreLink}}Learn more{{/learnMoreLink}}.',
 					{
 						components: {
 							learnMoreLink: (
