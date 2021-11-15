@@ -4,14 +4,15 @@ import { sprintf } from '@wordpress/i18n';
 import { useI18n } from '@wordpress/react-i18n';
 import debugFactory from 'debug';
 import { Fragment } from 'react';
+// eslint-disable-next-line no-restricted-imports
+import { PaymentMethod as PaymentMethodSavedDetails } from 'calypso/lib/checkout/payment-methods';
+// eslint-disable-next-line no-restricted-imports
+import PaymentMethodEdit from 'calypso/me/purchases/payment-methods/payment-method-edit';
 import { PaymentLogo } from '../payment-method-logos';
 import { SummaryLine, SummaryDetails } from '../summary-details';
 import type { PaymentMethod, ProcessPayment, LineItem } from '@automattic/composite-checkout';
 
 const debug = debugFactory( 'wpcom-checkout:existing-card-payment-method' );
-
-// Disabling this to make migration easier
-/* eslint-disable @typescript-eslint/no-use-before-define */
 
 export function createExistingCardMethod( {
 	id,
@@ -23,6 +24,7 @@ export function createExistingCardMethod( {
 	paymentMethodToken,
 	paymentPartnerProcessorId,
 	activePayButtonText = undefined,
+	card,
 }: {
 	id: string;
 	cardholderName: string;
@@ -33,6 +35,9 @@ export function createExistingCardMethod( {
 	paymentMethodToken: string;
 	paymentPartnerProcessorId: string;
 	activePayButtonText: string | undefined;
+	card: PaymentMethodSavedDetails;
+	tax_postal_code: string;
+	tax_country_code: string;
 } ): PaymentMethod {
 	debug( 'creating a new existing credit card payment method', {
 		id,
@@ -50,8 +55,9 @@ export function createExistingCardMethod( {
 				cardExpiry={ cardExpiry }
 				cardholderName={ cardholderName }
 				brand={ brand }
-				// postalCode={ postalCode }
-				// countryCode={ countryCode }
+				card={ card }
+				tax_postal_code={ card.tax_postal_code }
+				tax_country_code={ card.tax_country_code }
 			/>
 		),
 		submitButton: (
@@ -85,20 +91,36 @@ function formatDate( cardExpiry: string ): string {
 	return formattedDate;
 }
 
+const CardDetails = styled.span`
+	display: inline-block;
+	margin-right: 8px;
+
+	.rtl & {
+		margin-right: 0;
+		margin-left: 8px;
+	}
+`;
+
+const CardHolderName = styled.span`
+	display: block;
+`;
+
 function ExistingCardLabel( {
 	last4,
 	cardExpiry,
 	cardholderName,
 	brand,
-}: // postalCode,
-// countryCode,
-{
+	card,
+	tax_postal_code,
+	tax_country_code,
+}: {
 	last4: string;
 	cardExpiry: string;
 	cardholderName: string;
 	brand: string;
-	postalCode: string;
-	countryCode: string;
+	card: PaymentMethodSavedDetails;
+	tax_postal_code: string;
+	tax_country_code: string;
 } ): JSX.Element {
 	const { __, _x } = useI18n();
 
@@ -115,17 +137,16 @@ function ExistingCardLabel( {
 			<div className="existing-credit-card__logo payment-logos">
 				<PaymentLogo brand={ brand } isSummary={ true } />
 				<br />
-				<span>Postal Code: { 'postalCode' }</span>
-				<br />
-				<span>Country Code: { 'countryCode' }</span>
+				<PaymentMethodEdit
+					card={ card }
+					tax_postal_code={ tax_postal_code }
+					tax_country_code={ tax_country_code }
+					list={ false }
+				/>
 			</div>
 		</Fragment>
 	);
 }
-
-const CardHolderName = styled.span`
-	display: block;
-`;
 
 function ExistingCardPayButton( {
 	disabled,
@@ -229,13 +250,3 @@ function ExistingCardSummary( {
 		</SummaryDetails>
 	);
 }
-
-const CardDetails = styled.span`
-	display: inline-block;
-	margin-right: 8px;
-
-	.rtl & {
-		margin-right: 0;
-		margin-left: 8px;
-	}
-`;

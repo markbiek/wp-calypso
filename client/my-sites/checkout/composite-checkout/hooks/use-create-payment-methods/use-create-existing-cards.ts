@@ -47,6 +47,9 @@ export default function useCreateExistingCards( {
 					paymentMethodToken: storedDetails.mp_ref,
 					paymentPartnerProcessorId: storedDetails.payment_partner,
 					activePayButtonText,
+					card: storedDetails,
+					tax_postal_code: storedDetails.tax_postal_code,
+					tax_country_code: storedDetails.tax_country_code,
 				} )
 			) ?? []
 		);
