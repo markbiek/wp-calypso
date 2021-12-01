@@ -40,6 +40,7 @@ export type Steps = Step[];
 export type TourStepRenderer = React.FunctionComponent< TourStepRendererProps >;
 export type MinimizedTourRenderer = React.FunctionComponent< MinimizedTourRendererProps >;
 export type Callback = ( currentStepIndex: number ) => void;
+export type OnTourRateCallback = ( currentStepIndex: number, liked: boolean ) => void;
 export type CloseHandler = ( steps: Steps, currentStepIndex: number, source: string ) => void;
 export type PopperModifier = Partial< Modifier< unknown, Record< string, unknown > > >;
 

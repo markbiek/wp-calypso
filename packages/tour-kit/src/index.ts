@@ -1,2 +1,2 @@
-export { default } from './components/tour-kit-portal';
+export { default } from './components/tour-kit';
 export * from './types';

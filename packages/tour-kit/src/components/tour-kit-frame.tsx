@@ -11,21 +11,19 @@ import { usePopper } from 'react-popper';
 import useStepTracking from '../hooks/use-step-tracking';
 import { classParser } from '../utils';
 import KeyboardNavigation from './keyboard-navigation';
+import { useTourKitContext } from './tour-kit-context';
 import TourKitMinimized from './tour-kit-minimized';
 import Overlay from './tour-kit-overlay';
 import Spotlight from './tour-kit-spotlight';
 import TourKitStep from './tour-kit-step';
-import type { Config, Callback } from '../types';
-
-interface Props {
-	config: Config;
-}
+import type { Callback } from '../types';
 
 const handleCallback = ( currentStepIndex: number, callback?: Callback ) => {
 	typeof callback === 'function' && callback( currentStepIndex );
 };
 
-const TourKitFrame: React.FunctionComponent< Props > = ( { config } ) => {
+const TourKitFrame: React.FunctionComponent = () => {
+	const { config } = useTourKitContext();
 	const [ currentStepIndex, setCurrentStepIndex ] = useState( 0 );
 	const [ initialFocusedElement, setInitialFocusedElement ] = useState< HTMLElement | null >(
 		null

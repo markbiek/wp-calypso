@@ -11,7 +11,7 @@ import { useEffect, useMemo } from '@wordpress/element';
  * Internal Dependencies
  */
 import { usePrefetchTourAssets } from './hooks';
-import WelcomeTourMinimized from './tour-minimized-renderer';
+import TourKitMinimizedViewVariant from './packaged-tour-variants/wpcom/components/tour-kit-wpcom-minimized';
 import WelcomeTourStep from './tour-step-renderer';
 import getTourSteps from './tour-steps';
 import './style-tour.scss';
@@ -49,6 +49,21 @@ function LaunchWpcomWelcomeTour() {
 	return <WelcomeTour />;
 }
 
+function PackagedTourVariant( { config } ) {
+	// Preload card images
+	usePrefetchTourAssets( config.steps );
+
+	const readyConfig = {
+		...config,
+		renderers: {
+			tourStep: WelcomeTourStep,
+			tourMinimized: TourKitMinimizedViewVariant,
+		},
+	};
+
+	return <TourKit config={ readyConfig } />;
+}
+
 function WelcomeTour() {
 	const localeSlug = useLocale();
 	const { setShowWelcomeGuide } = useDispatch( 'automattic/wpcom-welcome-guide' );
@@ -60,15 +75,8 @@ function WelcomeTour() {
 		( step ) => ! ( step.meta.isDesktopOnly && isMobile() )
 	);
 
-	// Preload card images
-	usePrefetchTourAssets( tourSteps );
-
 	const tourConfig = {
 		steps: tourSteps,
-		renderers: {
-			tourStep: WelcomeTourStep,
-			tourMinimized: WelcomeTourMinimized,
-		},
 		closeHandler: ( steps, currentStepIndex, source ) => {
 			recordTracksEvent( 'calypso_editor_wpcom_tour_dismiss', {
 				is_gutenboarding: isGutenboarding,
@@ -140,7 +148,7 @@ function WelcomeTour() {
 		},
 	};
 
-	return <TourKit config={ tourConfig } />;
+	return <PackagedTourVariant config={ tourConfig } />;
 }
 
 export default LaunchWpcomWelcomeTour;

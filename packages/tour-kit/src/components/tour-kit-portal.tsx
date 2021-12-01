@@ -6,15 +6,8 @@ import { createPortal, useEffect, useRef } from '@wordpress/element';
  * Internal Dependencies
  */
 import TourKitFrame from './tour-kit-frame';
-import type { Config } from '../types';
 
-import '../styles.scss';
-
-interface Props {
-	config: Config;
-}
-
-const TourKitPortal: React.FunctionComponent< Props > = ( { config } ) => {
+const TourKitPortal: React.FunctionComponent = () => {
 	const portalParent = useRef( document.createElement( 'div' ) ).current;
 
 	useEffect( () => {
@@ -27,7 +20,7 @@ const TourKitPortal: React.FunctionComponent< Props > = ( { config } ) => {
 		};
 	}, [ portalParent ] );
 
-	return <div>{ createPortal( <TourKitFrame config={ config } />, portalParent ) }</div>;
+	return <div>{ createPortal( <TourKitFrame />, portalParent ) }</div>;
 };
 
 export default TourKitPortal;
