@@ -5,6 +5,9 @@ import {
 	STORED_CARDS_DELETE,
 	STORED_CARDS_DELETE_COMPLETED,
 	STORED_CARDS_DELETE_FAILED,
+	STORED_CARDS_TAX_LOCATION_UPDATE,
+	STORED_CARDS_TAX_LOCATION_UPDATE_COMPLETED,
+	STORED_CARDS_TAX_LOCATION_UPDATE_FAILED,
 	STORED_CARDS_FETCH,
 	STORED_CARDS_FETCH_COMPLETED,
 	STORED_CARDS_FETCH_FAILED,
@@ -76,6 +79,42 @@ export const deleteStoredCard = ( card ) => ( dispatch ) => {
 				type: STORED_CARDS_DELETE_FAILED,
 				card,
 				error: error.message || i18n.translate( 'There was a problem deleting the stored card.' ),
+			} );
+		} );
+};
+
+export const updateStoredCardTaxLocation = ( card, tax_postal_code, tax_country_code ) => (
+	dispatch
+) => {
+	dispatch( {
+		type: STORED_CARDS_TAX_LOCATION_UPDATE,
+		card,
+	} );
+
+	return Promise.all(
+		card.allStoredDetailsIds.map( ( stored_details_id ) =>
+			wp.req.post(
+				{
+					path: '/me/payment-methods/' + stored_details_id + '/edit-tax-location',
+				},
+				{
+					tax_postal_code: tax_postal_code,
+					tax_country_code: tax_country_code,
+				}
+			)
+		)
+	)
+		.then( () => {
+			dispatch( {
+				type: STORED_CARDS_TAX_LOCATION_UPDATE_COMPLETED,
+				card,
+			} );
+		} )
+		.catch( ( error ) => {
+			dispatch( {
+				type: STORED_CARDS_TAX_LOCATION_UPDATE_FAILED,
+				card,
+				error: error.message || i18n.translate( 'There was a problem editing the stored card.' ),
 			} );
 		} );
 };
