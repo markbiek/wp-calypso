@@ -28,6 +28,8 @@ export interface PaymentMethod {
 	remember: '1' | '0';
 	stored_details_id: string;
 	user_id: string;
+	tax_postal_code: string;
+	tax_country_code: string;
 }
 
 export interface PaymentMethodMeta {
