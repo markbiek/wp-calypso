@@ -9,11 +9,11 @@ import {
 	PaymentMethod,
 } from 'calypso/lib/checkout/payment-methods';
 import { errorNotice, successNotice } from 'calypso/state/notices/actions';
-import { ReduxDispatch } from 'calypso/state/redux-store';
-import { editStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
+import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
 import PaymentMethodDetails from './payment-method-details';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
+import type { CalypsoDispatch } from 'calypso/state/types';
 
 interface Props {
 	card: PaymentMethod;
@@ -25,7 +25,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		isEditingStoredCard( state, card.stored_details_id )
 	);
 
-	const reduxDispatch = useDispatch< ReduxDispatch >();
+	const reduxDispatch = useDispatch< CalypsoDispatch >();
 	const [ isDialogVisible, setIsDialogVisible ] = useState( false );
 	const closeDialog = useCallback( () => setIsDialogVisible( false ), [] );
 
@@ -52,7 +52,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		closeDialog();
 
 		reduxDispatch(
-			editStoredCardTaxLocation( card, inputValues.tax_postal_code, inputValues.tax_country_code )
+			updateStoredCardTaxLocation( card, inputValues.tax_postal_code, inputValues.tax_country_code )
 		)
 			.then( () => {
 				if ( isPaymentAgreement( card ) ) {
