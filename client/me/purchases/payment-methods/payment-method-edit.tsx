@@ -62,9 +62,6 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				}
 				recordTracksEvent( 'calypso_purchases_edit_tax_location' );
 			} )
-			.then( () => {
-				window.location.reload();
-			} )
 			.catch( ( error: Error ) => {
 				reduxDispatch( errorNotice( error.message ) );
 			} );
