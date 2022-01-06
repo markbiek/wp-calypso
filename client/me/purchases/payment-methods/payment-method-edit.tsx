@@ -74,7 +74,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		reduxDispatch,
 	] );
 
-	const handleSubmit = ( event ) => {
+	const handleSubmit = ( event: React.ChangeEvent< HTMLInputElement > ) => {
 		event.preventDefault();
 		const { name, value } = event.target;
 		setInputValues( { ...inputValues, [ name ]: value } );
@@ -146,6 +146,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				isExpired={ card.is_expired }
 				tax_postal_code={ renderTaxPostalCode() }
 				tax_country_code={ renderTaxCountryCode() }
+				card={ card }
 			/>
 			{ renderEditButton() }
 		</>
