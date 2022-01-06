@@ -16,6 +16,7 @@ import guessTimezone from 'calypso/lib/i18n-utils/guess-timezone';
 import { getSiteTypePropertyValue } from 'calypso/lib/signup/site-type';
 import { fetchSitesAndUser } from 'calypso/lib/signup/step-actions/fetch-sites-and-user';
 import { isValidLandingPageVertical } from 'calypso/lib/signup/verticals';
+import getToSAcceptancePayload from 'calypso/lib/tos-acceptance-tracking';
 import wpcom from 'calypso/lib/wp';
 import { cartManagerClient } from 'calypso/my-sites/checkout/cart-manager-client';
 import flows from 'calypso/signup/config/flows';
@@ -716,6 +717,7 @@ export function createAccount(
 				client_id: config( 'wpcom_signup_id' ),
 				client_secret: config( 'wpcom_signup_key' ),
 				...userData,
+				tos: getToSAcceptancePayload(),
 			},
 			responseHandler( SIGNUP_TYPE_SOCIAL )
 		);
@@ -736,6 +738,7 @@ export function createAccount(
 					locale: getLocaleSlug(),
 					client_id: config( 'wpcom_signup_id' ),
 					client_secret: config( 'wpcom_signup_key' ),
+					tos: getToSAcceptancePayload(),
 				},
 				oauth2Signup
 					? {
