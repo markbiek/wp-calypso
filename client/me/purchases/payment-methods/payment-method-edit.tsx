@@ -68,7 +68,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		reduxDispatch,
 	] );
 
-	const handleSubmit = ( event: React.FormEvent< HTMLFormElement > ) => {
+	const handleSubmit = ( event: React.SyntheticEvent ) => {
 		event.preventDefault();
 		const { name, value } = event.target as HTMLInputElement;
 		setInputValues( { ...inputValues, [ name ]: value } );

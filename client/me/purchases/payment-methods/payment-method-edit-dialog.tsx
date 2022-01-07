@@ -11,8 +11,8 @@ interface Props {
 	card: PaymentMethod;
 	isVisible: boolean;
 	onClose: () => void;
-	onConfirm: () => void;
-	form: () => void;
+	onConfirm: ( event: React.MouseEvent< HTMLButtonElement > ) => void;
+	form: unknown;
 }
 
 const PaymentMethodEditDialog: FunctionComponent< Props > = ( {
