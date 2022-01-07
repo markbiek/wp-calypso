@@ -30,17 +30,11 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	const closeDialog = useCallback( () => setIsDialogVisible( false ), [] );
 
 	const renderTaxPostalCode = (): string => {
-		const filtered = card.meta.find(
-			( item: { meta_key: string } ) => item.meta_key === 'tax_postal_code'
-		);
-		return filtered?.meta_value ?? '';
+		return card.tax_postal_code ?? '';
 	};
 
 	const renderTaxCountryCode = (): string => {
-		const filtered = card.meta.find(
-			( item: { meta_key: string } ) => item.meta_key === 'tax_country_code'
-		);
-		return filtered?.meta_value ?? '';
+		return card.tax_country_code ?? '';
 	};
 
 	const [ inputValues, setInputValues ] = useState( {
@@ -108,7 +102,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
-		if ( ! renderTaxPostalCode() ) {
+		if ( ! renderTaxPostalCode() || renderTaxPostalCode() ) {
 			return (
 				<Button
 					className="payment-method-edit__button"
