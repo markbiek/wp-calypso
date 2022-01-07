@@ -30,6 +30,7 @@ export interface PaymentMethod {
 	user_id: string;
 	tax_postal_code: string;
 	tax_country_code: string;
+	tax_info_set: boolean;
 }
 
 export interface PaymentMethodMeta {
@@ -38,8 +39,6 @@ export interface PaymentMethodMeta {
 	stored_details_id: string;
 	is_expired?: boolean;
 	meta: { meta_key: string; meta_value: string }[];
-	tax_postal_code: string;
-	tax_country_code: string;
 }
 
 export const isPaymentAgreement = ( method: PaymentMethod ): boolean =>
