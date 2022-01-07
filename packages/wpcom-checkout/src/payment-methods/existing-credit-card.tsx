@@ -111,8 +111,6 @@ function ExistingCardLabel( {
 	cardholderName,
 	brand,
 	card,
-	tax_postal_code,
-	tax_country_code,
 }: {
 	last4: string;
 	cardExpiry: string;
@@ -137,12 +135,7 @@ function ExistingCardLabel( {
 			<div className="existing-credit-card__logo payment-logos">
 				<PaymentLogo brand={ brand } isSummary={ true } />
 				<br />
-				<PaymentMethodEdit
-					card={ card }
-					tax_postal_code={ tax_postal_code }
-					tax_country_code={ tax_country_code }
-					list={ false }
-				/>
+				<PaymentMethodEdit card={ card } />
 			</div>
 		</Fragment>
 	);
