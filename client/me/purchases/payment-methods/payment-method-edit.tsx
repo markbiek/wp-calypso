@@ -20,7 +20,7 @@ interface Props {
 	tax_info_set: boolean;
 }
 
-const PaymentMethodEdit: FunctionComponent< Props > = ( { card, tax_info_set } ) => {
+const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	const translate = useTranslate();
 	const isEditing = useSelector( ( state ) =>
 		isEditingStoredCard( state, card.stored_details_id )
