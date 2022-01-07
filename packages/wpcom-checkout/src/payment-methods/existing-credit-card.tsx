@@ -56,8 +56,6 @@ export function createExistingCardMethod( {
 				cardholderName={ cardholderName }
 				brand={ brand }
 				card={ card }
-				tax_postal_code={ card.tax_postal_code }
-				tax_country_code={ card.tax_country_code }
 			/>
 		),
 		submitButton: (
@@ -117,8 +115,6 @@ function ExistingCardLabel( {
 	cardholderName: string;
 	brand: string;
 	card: PaymentMethodSavedDetails;
-	tax_postal_code: string;
-	tax_country_code: string;
 } ): JSX.Element {
 	const { __, _x } = useI18n();
 

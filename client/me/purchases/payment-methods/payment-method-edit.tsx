@@ -11,7 +11,7 @@ import {
 import { errorNotice, successNotice } from 'calypso/state/notices/actions';
 import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
-import PaymentMethodDetails from './payment-method-details';
+// import PaymentMethodDetails from './payment-method-details';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
 import type { CalypsoDispatch } from 'calypso/state/types';
 
@@ -30,20 +30,14 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card, tax_info_set } )
 	const [ isDialogVisible, setIsDialogVisible ] = useState( false );
 	const closeDialog = useCallback( () => setIsDialogVisible( false ), [] );
 
-	const renderTaxPostalCode = (): string => {
-		return card.tax_postal_code ?? '';
-	};
-
-	const renderTaxCountryCode = (): string => {
-		return card.tax_country_code ?? '';
-	};
-
-	const taxLocationSet = (): boolean => {
-		if ( ! card.tax_postal_code && ! card.tax_country_code ) {
+	const isTaxInfoSet = (): boolean => {
+		if ( card.tax_postal_code == null ) {
 			return ( tax_info_set = false );
 		}
 		return tax_info_set;
 	};
+
+	isTaxInfoSet();
 
 	const [ inputValues, setInputValues ] = useState( {
 		tax_postal_code: '',
@@ -116,7 +110,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card, tax_info_set } )
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
-		if ( ! renderTaxPostalCode() || ! renderTaxCountryCode() ) {
+		if ( ! card.tax_postal_code || ! card.tax_country_code ) {
 			return (
 				<Button
 					className="payment-method-edit__button"
@@ -143,19 +137,6 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card, tax_info_set } )
 				onConfirm={ handleSubmit }
 				card={ card }
 				form={ renderEditForm() }
-			/>
-			<PaymentMethodDetails
-				lastDigits={ card.card }
-				email={ card.email }
-				cardType={ card.card_type || '' }
-				paymentPartner={ card.payment_partner }
-				name={ card.name }
-				expiry={ card.expiry }
-				isExpired={ card.is_expired }
-				tax_postal_code={ renderTaxPostalCode() }
-				tax_country_code={ renderTaxCountryCode() }
-				tax_info_set={ taxLocationSet() }
-				card={ card }
 			/>
 			{ renderEditButton() }
 		</>
