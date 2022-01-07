@@ -10,7 +10,6 @@ import { isCreditCard } from 'calypso/lib/checkout/payment-methods';
 import PaymentMethod from 'calypso/me/purchases/payment-methods/payment-method';
 import PaymentMethodBackupToggle from 'calypso/me/purchases/payment-methods/payment-method-backup-toggle';
 import PaymentMethodDelete from 'calypso/me/purchases/payment-methods/payment-method-delete';
-import PaymentMethodEdit from 'calypso/me/purchases/payment-methods/payment-method-edit';
 import {
 	getAllStoredCards,
 	getUniquePaymentAgreements,
@@ -60,6 +59,10 @@ class PaymentMethodList extends Component< PaymentMethodListProps > {
 						name={ paymentMethod.name }
 						expiry={ paymentMethod.expiry }
 						isExpired={ paymentMethod.is_expired }
+						tax_info_set={ paymentMethod.tax_info_set }
+						tax_postal_code={ paymentMethod.tax_postal_code }
+						tax_country_code={ paymentMethod.tax_country_code }
+						card={ paymentMethod }
 					/>
 					{ isCreditCard( paymentMethod ) && <PaymentMethodBackupToggle card={ paymentMethod } /> }
 					<PaymentMethodDelete card={ paymentMethod } />
