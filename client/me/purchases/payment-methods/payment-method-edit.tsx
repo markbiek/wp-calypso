@@ -11,7 +11,6 @@ import {
 import { errorNotice, successNotice } from 'calypso/state/notices/actions';
 import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
-// import PaymentMethodDetails from './payment-method-details';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
 import type { CalypsoDispatch } from 'calypso/state/types';
 
