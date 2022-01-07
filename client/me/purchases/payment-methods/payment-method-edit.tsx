@@ -17,9 +17,10 @@ import type { CalypsoDispatch } from 'calypso/state/types';
 
 interface Props {
 	card: PaymentMethod;
+	tax_info_set: boolean;
 }
 
-const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
+const PaymentMethodEdit: FunctionComponent< Props > = ( { card, tax_info_set } ) => {
 	const translate = useTranslate();
 	const isEditing = useSelector( ( state ) =>
 		isEditingStoredCard( state, card.stored_details_id )
@@ -35,6 +36,13 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 
 	const renderTaxCountryCode = (): string => {
 		return card.tax_country_code ?? '';
+	};
+
+	const taxLocationSet = (): boolean => {
+		if ( ! card.tax_postal_code && ! card.tax_country_code ) {
+			return ( tax_info_set = false );
+		}
+		return tax_info_set;
 	};
 
 	const [ inputValues, setInputValues ] = useState( {
@@ -108,7 +116,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
-		if ( ! renderTaxPostalCode() || renderTaxPostalCode() ) {
+		if ( ! renderTaxPostalCode() || ! renderTaxCountryCode() ) {
 			return (
 				<Button
 					className="payment-method-edit__button"
@@ -146,6 +154,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				isExpired={ card.is_expired }
 				tax_postal_code={ renderTaxPostalCode() }
 				tax_country_code={ renderTaxCountryCode() }
+				tax_info_set={ taxLocationSet() }
 				card={ card }
 			/>
 			{ renderEditButton() }
