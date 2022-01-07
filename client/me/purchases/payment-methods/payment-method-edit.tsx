@@ -1,6 +1,6 @@
 import { Button } from '@automattic/components';
 import { useTranslate } from 'i18n-calypso';
-import { FunctionComponent, useState, useCallback } from 'react';
+import { FunctionComponent, useState, useCallback, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { recordTracksEvent } from 'calypso/lib/analytics/tracks';
 import {
@@ -12,6 +12,7 @@ import { errorNotice, successNotice } from 'calypso/state/notices/actions';
 import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
+import { TaxInfoContext } from './payment-method-tax-info-context';
 import type { CalypsoDispatch } from 'calypso/state/types';
 
 interface Props {
@@ -29,14 +30,16 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card, tax_info_set } )
 	const [ isDialogVisible, setIsDialogVisible ] = useState( false );
 	const closeDialog = useCallback( () => setIsDialogVisible( false ), [] );
 
-	const isTaxInfoSet = (): boolean => {
+	const { isTaxInfoSet, setTaxInfoSet } = useContext( TaxInfoContext );
+
+	const setTaxInfo = (): boolean => {
 		if ( card.tax_postal_code == null ) {
-			return ( tax_info_set = false );
+			return false;
 		}
-		return tax_info_set;
+		return isTaxInfoSet;
 	};
 
-	isTaxInfoSet();
+	setTaxInfoSet( setTaxInfo );
 
 	const [ inputValues, setInputValues ] = useState( {
 		tax_postal_code: '',
