@@ -22,19 +22,17 @@ interface Props {
 	isExpired?: boolean;
 	tax_postal_code: string;
 	tax_country_code: string;
+	tax_info_set: boolean;
 	card: PaymentMethod;
 }
 
 const PaymentMethodDetails: FunctionComponent< Props > = ( {
 	lastDigits,
 	cardType,
-	name,
 	expiry,
 	email,
 	paymentPartner,
 	isExpired,
-	tax_postal_code,
-	tax_country_code,
 } ) => {
 	const translate = useTranslate();
 	const moment = useLocalizedMoment();
@@ -81,13 +79,6 @@ const PaymentMethodDetails: FunctionComponent< Props > = ( {
 						{ translate( 'Credit card expired' ) }
 					</span>
 				) }
-				<span className="payment-method-details__name">{ name }</span>
-				<span className="payment-method-details__postal-code">
-					Postal Code: <span>{ tax_postal_code }</span>
-				</span>
-				<span className="payment-method-details__country-code">
-					Country Code: <span>{ tax_country_code }</span>
-				</span>
 			</div>
 		</>
 	);
