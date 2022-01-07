@@ -135,7 +135,7 @@ function ExistingCardLabel( {
 			<div className="existing-credit-card__logo payment-logos">
 				<PaymentLogo brand={ brand } isSummary={ true } />
 				<br />
-				<PaymentMethodEdit card={ card } />
+				<PaymentMethodEdit card={ card } tax_info_set />
 			</div>
 		</Fragment>
 	);
