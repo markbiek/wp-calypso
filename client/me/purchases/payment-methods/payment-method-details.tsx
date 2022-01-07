@@ -29,6 +29,7 @@ interface Props {
 const PaymentMethodDetails: FunctionComponent< Props > = ( {
 	lastDigits,
 	cardType,
+	name,
 	expiry,
 	email,
 	paymentPartner,
@@ -79,6 +80,7 @@ const PaymentMethodDetails: FunctionComponent< Props > = ( {
 						{ translate( 'Credit card expired' ) }
 					</span>
 				) }
+				<span className="payment-method-details__name">{ name }</span>
 			</div>
 		</>
 	);
