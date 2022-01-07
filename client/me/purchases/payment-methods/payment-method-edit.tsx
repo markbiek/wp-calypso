@@ -68,7 +68,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		reduxDispatch,
 	] );
 
-	const handleSubmit = ( event: Event ) => {
+	const handleSubmit = ( event: React.FormEvent< HTMLFormElement > ) => {
 		event.preventDefault();
 		const { name, value } = event.target as HTMLInputElement;
 		setInputValues( { ...inputValues, [ name ]: value } );
@@ -83,8 +83,11 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 					name="tax_postal_code"
 					placeholder="Enter postal code"
 					value={ inputValues.tax_postal_code }
-					onChange={ ( e ) =>
-						setInputValues( { ...inputValues, tax_postal_code: e.target.value } )
+					onChange={ ( e: React.ChangeEvent< HTMLInputElement > ): void =>
+						setInputValues( {
+							...inputValues,
+							tax_postal_code: e.target.value,
+						} )
 					}
 				/>
 				<input
@@ -92,8 +95,11 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 					name="tax_country_code"
 					placeholder="Enter country code"
 					value={ inputValues.tax_country_code }
-					onChange={ ( e ) =>
-						setInputValues( { ...inputValues, tax_country_code: e.target.value } )
+					onChange={ ( e: React.ChangeEvent< HTMLInputElement > ): void =>
+						setInputValues( {
+							...inputValues,
+							tax_country_code: e.target.value,
+						} )
 					}
 				/>
 			</form>
