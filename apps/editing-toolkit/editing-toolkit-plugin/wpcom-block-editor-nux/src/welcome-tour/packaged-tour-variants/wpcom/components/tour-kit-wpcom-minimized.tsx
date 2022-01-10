@@ -17,13 +17,13 @@ const TourKitWPCOMMinimized: MinimizedTourRenderer = ( {
 
 	return (
 		<Flex gap={ 0 } className="tour-kit-wpcom-minimized">
-			<Button onClick={ onMaximize } aria-label={ __( 'Resume Tour', 'tour-kit' ) }>
+			<Button onClick={ onMaximize } aria-label={ __( 'Resume Tour', 'full-site-editing' ) }>
 				<Flex gap={ 13 }>
 					<p>
 						{ createInterpolateElement(
 							sprintf(
 								/* translators: 1: current page number, 2: total number of pages */
-								__( 'Resume welcome tour <span>(%1$d/%2$d)</span>', 'tour-kit' ),
+								__( 'Resume welcome tour <span>(%1$d/%2$d)</span>', 'full-site-editing' ),
 								page,
 								numberOfPages
 							),
@@ -37,7 +37,7 @@ const TourKitWPCOMMinimized: MinimizedTourRenderer = ( {
 			</Button>
 			<Button
 				onClick={ onDismiss( 'close-btn-minimized' ) }
-				aria-label={ __( 'Close Tour', 'tour-kit' ) }
+				aria-label={ __( 'Close Tour', 'full-site-editing' ) }
 			>
 				<Icon icon={ close } size={ 24 } />
 			</Button>

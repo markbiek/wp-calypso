@@ -33,11 +33,11 @@ const TourKitWPGuideTourRating: React.FunctionComponent< Props > = ( { currentSt
 	return (
 		<>
 			<p className="tour-kit-wpguide-tour-rating__end-text">
-				{ __( 'Did you find this guide helpful?', 'tour-kit' ) }
+				{ __( 'Did you find this guide helpful?', 'full-site-editing' ) }
 			</p>
 			<div>
 				<Button
-					aria-label={ __( 'Rate thumbs up', 'tour-kit' ) }
+					aria-label={ __( 'Rate thumbs up', 'full-site-editing' ) }
 					className={ classNames( 'tour-kit-wpguide-tour-rating__end-icon', {
 						active: tourRating === 'thumbs-up',
 					} ) }
@@ -47,7 +47,7 @@ const TourKitWPGuideTourRating: React.FunctionComponent< Props > = ( { currentSt
 					iconSize={ 24 }
 				/>
 				<Button
-					aria-label={ __( 'Rate thumbs down', 'tour-kit' ) }
+					aria-label={ __( 'Rate thumbs down', 'full-site-editing' ) }
 					className={ classNames( 'tour-kit-wpguide-tour-rating__end-icon', {
 						active: tourRating === 'thumbs-down',
 					} ) }

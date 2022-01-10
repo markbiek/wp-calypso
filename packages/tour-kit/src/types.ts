@@ -70,4 +70,8 @@ export interface Config {
 	};
 }
 
+export type WPCOMConfig = Omit< Config, 'renderers' >;
+
 export type Tour = React.FunctionComponent< { config: Config } >;
+
+export type WPCOMVariant = React.FunctionComponent< { config: WPCOMConfig } >;
