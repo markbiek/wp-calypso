@@ -30,7 +30,7 @@ export interface PaymentMethod {
 	user_id: string;
 	tax_postal_code: string;
 	tax_country_code: string;
-	taxInfo: boolean;
+	disabled: boolean;
 }
 
 export interface PaymentMethodMeta {

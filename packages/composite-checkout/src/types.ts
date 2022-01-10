@@ -35,6 +35,7 @@ export interface PaymentMethod {
 	activeContent?: React.ReactNode;
 	inactiveContent?: React.ReactNode;
 	submitButton: ReactElement;
+	disabled?: boolean;
 	getAriaLabel: ( localize: ( value: string ) => string ) => string;
 }
 
