@@ -22,7 +22,7 @@ interface Props {
 	isExpired?: boolean;
 	tax_postal_code: string;
 	tax_country_code: string;
-	tax_info_set: boolean;
+	taxInfo: boolean;
 	card: PaymentMethod;
 }
 
