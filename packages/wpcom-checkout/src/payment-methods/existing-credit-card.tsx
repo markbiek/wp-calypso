@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { sprintf } from '@wordpress/i18n';
 import { useI18n } from '@wordpress/react-i18n';
 import debugFactory from 'debug';
-import { Fragment } from 'react';
+import { createContext, Fragment } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { PaymentMethod as PaymentMethodSavedDetails } from 'calypso/lib/checkout/payment-methods';
 // eslint-disable-next-line no-restricted-imports
@@ -131,7 +131,7 @@ function ExistingCardLabel( {
 			<div className="existing-credit-card__logo payment-logos">
 				<PaymentLogo brand={ brand } isSummary={ true } />
 				<br />
-				<PaymentMethodEdit card={ card } tax_info_set />
+				<PaymentMethodEdit card={ card } />
 			</div>
 		</Fragment>
 	);
@@ -238,4 +238,24 @@ function ExistingCardSummary( {
 			</SummaryLine>
 		</SummaryDetails>
 	);
+}
+
+export const TaxInfoContext = createContext( false );
+
+export function TaxInfoContextProvider( {
+	card,
+}: {
+	card: PaymentMethodSavedDetails;
+	tax_postal_code: string;
+} ): JSX.Element {
+	const checkTaxInfo = ( card: PaymentMethodSavedDetails ): boolean => {
+		if ( ! card.tax_postal_code ) {
+			return false;
+		}
+		return true;
+	};
+
+	const taxInfo = checkTaxInfo( card );
+
+	return <TaxInfoContext.Provider value={ taxInfo }></TaxInfoContext.Provider>;
 }
