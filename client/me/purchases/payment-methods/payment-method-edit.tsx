@@ -78,7 +78,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		taxInfo: ManagedContactDetails;
 		countriesList: CountryListItem[];
 		isDisabled: boolean;
-	} ) => {
+	} ): JSX.Element => {
 		return (
 			<form onSubmit={ handleSubmit }>
 				<RenderEditFormFields
@@ -120,7 +120,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				onClose={ closeDialog }
 				onConfirm={ handleSubmit }
 				card={ card }
-				form={ renderEditForm }
+				form={ renderEditForm() }
 			/>
 			{ renderEditButton() }
 		</>

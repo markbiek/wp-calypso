@@ -38,7 +38,7 @@ const RenderEditFormFields = ( {
 				}
 				isError={ countryCode?.isTouched && ! isValid( countryCode ) }
 				isDisabled={ isDisabled }
-				errorMessage={ countryCode?.errors[ 0 ] ?? translate( 'This field is required.' ) }
+				errorMessage={ countryCode?.errors[ 0 ] ?? translate( 'The country is required.' ) }
 				currentValue={ countryCode?.value }
 				countriesList={ countriesList }
 			/>
@@ -55,7 +55,9 @@ const RenderEditFormFields = ( {
 					} )
 				}
 				isError={ postalCode?.isTouched && ! isValid( postalCode ) }
-				errorMessage={ postalCode?.errors[ 0 ] ?? String( translate( 'This field is required.' ) ) }
+				errorMessage={
+					postalCode?.errors[ 0 ] ?? String( translate( 'The postal code is required.' ) )
+				}
 			/>
 		</>
 	);
