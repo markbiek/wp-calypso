@@ -1,0 +1,80 @@
+.wpcom-tour-kit-minimized {
+	border-radius: 2px;
+	box-shadow: 0 2px 6px rgba( 60, 66, 87, 0.08 ), 0 0 0 1px rgba( 60, 66, 87, 0.16 ),
+		0 1px 1px rgba( 0, 0, 0, 0.08 );
+	background-color: $white;
+	color: $black;
+
+	.components-button {
+		height: 44px;
+
+		.wpcom-tour-kit-minimized__tour-index {
+			color: $gray-600;
+		}
+
+		svg {
+			color: #50575e;
+		}
+
+		&:hover {
+			.wpcom-tour-kit-minimized__tour-index,
+			svg {
+				color: inherit;
+			}
+		}
+	}
+}
+
+.welcome-tour-card {
+	width: 400px;
+	max-width: 92vw;
+
+	&.welcome-tour-card.is-elevated {
+		box-shadow: none;
+		box-shadow: rgba( 0, 0, 0, 0.1 ) 0 0 0 1px, rgba( 0, 0, 0, 0.1 ) 0 2px 4px 0;
+	}
+
+	&.components-card {
+		border: none;
+		border-radius: 4px; /* stylelint-disable-line */
+		box-shadow: none;
+	}
+
+	.components-card__body {
+		min-height: 114px;
+	}
+
+	.components-card__body,
+	.components-card__footer {
+		border-top: none;
+		padding: $grid-unit-20 !important;
+	}
+
+	.components-card__footer {
+		.wpcom-tour-kit-rating__end-text {
+			color: $gray-600;
+			font-size: 0.875rem;
+			font-style: italic;
+		}
+
+		.wpcom-tour-kit-rating__end-icon.components-button.has-icon {
+			background-color: #f6f7f7;
+			border-radius: 50%; /* stylelint-disable-line */
+			color: $gray-600;
+			margin-left: 8px;
+
+			path {
+				fill: $gray-600;
+			}
+
+			&.active {
+				background-color: $black;
+				opacity: 1;
+
+				path {
+					fill: $white;
+				}
+			}
+		}
+	}
+}
