@@ -12,6 +12,8 @@ import { errorNotice, successNotice } from 'calypso/state/notices/actions';
 import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
+import RenderEditFormFields from './payment-method-edit-form-fields';
+import type { CountryListItem, ManagedContactDetails } from '@automattic/wpcom-checkout';
 import type { CalypsoDispatch } from 'calypso/state/types';
 
 interface Props {
@@ -66,32 +68,25 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		handleEdit();
 	};
 
-	const renderEditForm = () => {
+	const renderEditForm = ( {
+		section,
+		taxInfo,
+		countriesList,
+		isDisabled,
+	}: {
+		section: string;
+		taxInfo: ManagedContactDetails;
+		countriesList: CountryListItem[];
+		isDisabled: boolean;
+	} ) => {
 		return (
 			<form onSubmit={ handleSubmit }>
-				<input
-					type="text"
-					name="tax_postal_code"
-					placeholder="Enter postal code"
-					value={ inputValues.tax_postal_code }
-					onChange={ ( e: React.ChangeEvent< HTMLInputElement > ): void =>
-						setInputValues( {
-							...inputValues,
-							tax_postal_code: e.target.value,
-						} )
-					}
-				/>
-				<input
-					type="text"
-					name="tax_country_code"
-					placeholder="Enter country code"
-					value={ inputValues.tax_country_code }
-					onChange={ ( e: React.ChangeEvent< HTMLInputElement > ): void =>
-						setInputValues( {
-							...inputValues,
-							tax_country_code: e.target.value,
-						} )
-					}
+				<RenderEditFormFields
+					taxInfo={ taxInfo }
+					section={ section }
+					countriesList={ countriesList }
+					isDisabled={ isDisabled }
+					card={ card }
 				/>
 			</form>
 		);
@@ -125,7 +120,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				onClose={ closeDialog }
 				onConfirm={ handleSubmit }
 				card={ card }
-				form={ renderEditForm() }
+				form={ renderEditForm }
 			/>
 			{ renderEditButton() }
 		</>
