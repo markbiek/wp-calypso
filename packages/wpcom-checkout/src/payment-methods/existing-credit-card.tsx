@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { sprintf } from '@wordpress/i18n';
 import { useI18n } from '@wordpress/react-i18n';
 import debugFactory from 'debug';
-import { createContext, Fragment } from 'react';
+import { Fragment } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { PaymentMethod as PaymentMethodSavedDetails } from 'calypso/lib/checkout/payment-methods';
 // eslint-disable-next-line no-restricted-imports
@@ -38,6 +38,7 @@ export function createExistingCardMethod( {
 	card: PaymentMethodSavedDetails;
 	tax_postal_code: string;
 	tax_country_code: string;
+	disabled: boolean;
 } ): PaymentMethod {
 	debug( 'creating a new existing credit card payment method', {
 		id,
@@ -46,6 +47,13 @@ export function createExistingCardMethod( {
 		brand,
 		last4,
 	} );
+
+	const isTaxLocationInfoMissing = (): boolean => {
+		if ( card.tax_postal_code && card.tax_country_code ) {
+			return false;
+		}
+		return true;
+	};
 
 	return {
 		id,
@@ -75,6 +83,7 @@ export function createExistingCardMethod( {
 				last4={ last4 }
 			/>
 		),
+		disabled: isTaxLocationInfoMissing(),
 		getAriaLabel: () => `${ brand } ${ last4 } ${ cardholderName }`,
 	};
 }
@@ -238,24 +247,4 @@ function ExistingCardSummary( {
 			</SummaryLine>
 		</SummaryDetails>
 	);
-}
-
-export const TaxInfoContext = createContext( false );
-
-export function TaxInfoContextProvider( {
-	card,
-}: {
-	card: PaymentMethodSavedDetails;
-	tax_postal_code: string;
-} ): JSX.Element {
-	const checkTaxInfo = ( card: PaymentMethodSavedDetails ): boolean => {
-		if ( ! card.tax_postal_code ) {
-			return false;
-		}
-		return true;
-	};
-
-	const taxInfo = checkTaxInfo( card );
-
-	return <TaxInfoContext.Provider value={ taxInfo }></TaxInfoContext.Provider>;
 }

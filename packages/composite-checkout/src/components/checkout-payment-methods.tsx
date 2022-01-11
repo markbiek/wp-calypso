@@ -4,11 +4,6 @@ import { useI18n } from '@wordpress/react-i18n';
 import debugFactory from 'debug';
 import PropTypes from 'prop-types';
 import { useCallback, useContext } from 'react';
-// eslint-disable-next-line no-restricted-imports
-import {
-	TaxInfoContext,
-	TaxInfoContextProvider,
-} from 'calypso/me/purchases/payment-methods/payment-method-tax-info-context';
 import CheckoutContext from '../lib/checkout-context';
 import joinClasses from '../lib/join-classes';
 import {
@@ -69,7 +64,7 @@ export default function CheckoutPaymentMethods( {
 						inactiveContent={ paymentMethod.inactiveContent }
 						checked={ true }
 						summary={ true }
-						disabled={ false }
+						disabled={ paymentMethod.disabled }
 						ariaLabel={ paymentMethod.getAriaLabel( __ as ( text: string ) => string ) }
 					/>
 				</CheckoutErrorBoundary>
@@ -108,7 +103,7 @@ export default function CheckoutPaymentMethods( {
 							inactiveContent={ method.inactiveContent }
 							checked={ paymentMethod?.id === method.id }
 							onClick={ onClickPaymentMethod }
-							disabled={ false }
+							disabled={ method.disabled }
 							ariaLabel={ method.getAriaLabel( __ as ( text: string ) => string ) }
 						/>
 					</CheckoutErrorBoundary>
@@ -144,28 +139,27 @@ function PaymentMethod( {
 	onClick,
 	ariaLabel,
 	summary,
+	disabled,
 }: PaymentMethodProps ): JSX.Element {
 	const { formStatus } = useFormStatus();
-	const { isTaxInfoSet } = useContext( TaxInfoContext );
+
 	if ( summary ) {
 		return <>{ inactiveContent && inactiveContent }</>;
 	}
 
 	return (
-		<TaxInfoContextProvider>
-			<RadioButton
-				name="paymentMethod"
-				value={ id }
-				id={ id }
-				checked={ checked }
-				disabled={ isTaxInfoSet || formStatus !== FormStatus.READY }
-				onChange={ onClick ? () => onClick( id ) : undefined }
-				ariaLabel={ ariaLabel }
-				label={ label }
-			>
-				{ activeContent && activeContent }
-			</RadioButton>
-		</TaxInfoContextProvider>
+		<RadioButton
+			name="paymentMethod"
+			value={ id }
+			id={ id }
+			checked={ checked }
+			disabled={ disabled || formStatus !== FormStatus.READY }
+			onChange={ onClick ? () => onClick( id ) : undefined }
+			ariaLabel={ ariaLabel }
+			label={ label }
+		>
+			{ activeContent && activeContent }
+		</RadioButton>
 	);
 }
 
@@ -178,7 +172,6 @@ PaymentMethod.propTypes = {
 	label: PropTypes.node,
 	inactiveContent: PropTypes.node,
 	summary: PropTypes.bool,
-	disabled: PropTypes.bool,
 };
 
 interface PaymentMethodProps {
@@ -190,5 +183,5 @@ interface PaymentMethodProps {
 	label?: ReactNode;
 	inactiveContent?: ReactNode;
 	summary?: boolean;
-	disabled: boolean;
+	disabled?: boolean;
 }
