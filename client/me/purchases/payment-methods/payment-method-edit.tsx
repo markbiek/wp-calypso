@@ -1,4 +1,6 @@
 import { Button } from '@automattic/components';
+import { FormStatus, useFormStatus } from '@automattic/composite-checkout';
+import { useSelect } from '@wordpress/data';
 import { useTranslate } from 'i18n-calypso';
 import { FunctionComponent, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +10,7 @@ import {
 	getPaymentMethodSummary,
 	PaymentMethod,
 } from 'calypso/lib/checkout/payment-methods';
+import useCountryList from 'calypso/my-sites/checkout/composite-checkout/hooks/use-country-list';
 import { errorNotice, successNotice } from 'calypso/state/notices/actions';
 import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
@@ -63,34 +66,37 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 
 	const handleSubmit = ( event: React.SyntheticEvent ) => {
 		event.preventDefault();
-		const { name, value } = event.target as HTMLInputElement;
-		setInputValues( { ...inputValues, [ name ]: value } );
+		const { id, value } = event.target as HTMLInputElement;
+		setInputValues( { ...inputValues, [ id ]: value } );
+		console.log( inputValues );
 		handleEdit();
 	};
 
-	const renderEditForm = ( {
+	const RenderEditForm = ( {
 		section,
-		taxInfo,
-		countriesList,
-		isDisabled,
 	}: {
 		section: string;
 		taxInfo: ManagedContactDetails;
 		countriesList: CountryListItem[];
 		isDisabled: boolean;
 	} ): JSX.Element => {
+		const { formStatus } = useFormStatus();
+		const fields: ManagedContactDetails = useSelect( ( select ) =>
+			select( 'credit-card' ).getFields()
+		);
+
 		return (
-			<form onSubmit={ handleSubmit }>
-				<RenderEditFormFields
-					taxInfo={ taxInfo }
-					section={ section }
-					countriesList={ countriesList }
-					isDisabled={ isDisabled }
-					card={ card }
-				/>
-			</form>
+			<RenderEditFormFields
+				taxInfo={ fields }
+				section={ section }
+				countriesList={ useCountryList( [] ) }
+				isDisabled={ formStatus !== FormStatus.READY }
+				card={ card }
+			/>
 		);
 	};
+
+	const formRender = RenderEditForm( 'section' );
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
@@ -120,7 +126,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				onClose={ closeDialog }
 				onConfirm={ handleSubmit }
 				card={ card }
-				form={ renderEditForm() }
+				form={ formRender }
 			/>
 			{ renderEditButton() }
 		</>
