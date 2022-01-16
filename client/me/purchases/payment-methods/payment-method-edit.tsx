@@ -1,6 +1,4 @@
 import { Button } from '@automattic/components';
-import { FormStatus, useFormStatus } from '@automattic/composite-checkout';
-import { useSelect } from '@wordpress/data';
 import { useTranslate } from 'i18n-calypso';
 import { FunctionComponent, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,14 +8,12 @@ import {
 	getPaymentMethodSummary,
 	PaymentMethod,
 } from 'calypso/lib/checkout/payment-methods';
-import useCountryList from 'calypso/my-sites/checkout/composite-checkout/hooks/use-country-list';
 import { errorNotice, successNotice } from 'calypso/state/notices/actions';
 import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions';
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
+import { CalypsoDispatch } from 'calypso/state/types';
+import RenderEditFormFields from './components/payment-method-edit-form-fields';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
-import RenderEditFormFields from './payment-method-edit-form-fields';
-import type { CountryListItem, ManagedContactDetails } from '@automattic/wpcom-checkout';
-import type { CalypsoDispatch } from 'calypso/state/types';
 
 interface Props {
 	card: PaymentMethod;
@@ -68,35 +64,34 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 		event.preventDefault();
 		const { id, value } = event.target as HTMLInputElement;
 		setInputValues( { ...inputValues, [ id ]: value } );
-		console.log( inputValues );
 		handleEdit();
 	};
 
-	const RenderEditForm = ( {
-		section,
-	}: {
-		section: string;
-		taxInfo: ManagedContactDetails;
-		countriesList: CountryListItem[];
-		isDisabled: boolean;
-	} ): JSX.Element => {
-		const { formStatus } = useFormStatus();
-		const fields: ManagedContactDetails = useSelect( ( select ) =>
-			select( 'credit-card' ).getFields()
-		);
+	const onChangeCountryCode = ( e: { target: { value: string } } ) => {
+		setInputValues( { ...inputValues, tax_country_code: e.target.value } );
+	};
 
+	const onChangePostalCode = ( e: { target: { value: string } } ) => {
+		setInputValues( { ...inputValues, tax_postal_code: e.target.value } );
+	};
+
+	const postalCodeValue = inputValues.tax_postal_code;
+	const countryCodeValue = inputValues.tax_country_code;
+
+	const renderEditForm = (): JSX.Element => {
 		return (
-			<RenderEditFormFields
-				taxInfo={ fields }
-				section={ section }
-				countriesList={ useCountryList( [] ) }
-				isDisabled={ formStatus !== FormStatus.READY }
-				card={ card }
-			/>
+			<form onSubmit={ handleSubmit }>
+				<RenderEditFormFields
+					postalCodeValue={ postalCodeValue }
+					countryCodeValue={ countryCodeValue }
+					onChangePostalCode={ onChangePostalCode }
+					onChangeCountryCode={ onChangeCountryCode }
+				/>
+			</form>
 		);
 	};
 
-	const formRender = RenderEditForm( 'section' );
+	const formRender = renderEditForm();
 
 	const renderEditButton = () => {
 		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
