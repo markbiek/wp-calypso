@@ -59,7 +59,6 @@ class PaymentMethodList extends Component< PaymentMethodListProps > {
 						name={ paymentMethod.name }
 						expiry={ paymentMethod.expiry }
 						isExpired={ paymentMethod.is_expired }
-						taxInfo={ paymentMethod.taxInfo }
 						tax_postal_code={ paymentMethod.tax_postal_code }
 						tax_country_code={ paymentMethod.tax_country_code }
 						card={ paymentMethod }
