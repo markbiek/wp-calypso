@@ -1,7 +1,7 @@
 import { useTranslate } from 'i18n-calypso';
 import FormTextInput from 'calypso/components/forms/form-text-input';
-import CountrySelectMenu from 'calypso/my-sites/checkout/composite-checkout/components/country-select-menu';
 import useCountryList from 'calypso/my-sites/checkout/composite-checkout/hooks/use-country-list';
+import TaxCountrySelectMenu from './tax-country-select-menu';
 
 const RenderEditFormFields = ( {
 	onChangePostalCode,
@@ -18,9 +18,14 @@ const RenderEditFormFields = ( {
 	const translate = useTranslate();
 	const countriesList = useCountryList( [] );
 
+	if ( ! postalCodeValue ) {
+		postalCodeValue = '';
+	}
+
 	return (
 		<>
-			<CountrySelectMenu
+			<TaxCountrySelectMenu
+				name="tax_country_code"
 				translate={ translate }
 				onChange={ onChangeCountryCode }
 				isError={ '' }
@@ -33,7 +38,7 @@ const RenderEditFormFields = ( {
 			<FormTextInput
 				name="tax_postal_code"
 				placeholder="Enter postal code"
-				value={ postalCodeValue }
+				value={ '' || postalCodeValue }
 				onChange={ onChangePostalCode }
 			/>
 		</>
