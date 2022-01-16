@@ -37,17 +37,14 @@ const PaymentMethodEditDialog: FunctionComponent< Props > = ( {
 			] }
 		>
 			<CardHeading tagName="h2" size={ 24 }>
-				{ translate( 'Update payment method' ) }
+				{ translate( 'Update Your Payment Method' ) }
 			</CardHeading>
 			<p>
-				{ translate(
-					'The payment method {{paymentMethodSummary/}} will be updated with the below information:',
-					{
-						components: {
-							paymentMethodSummary: <strong>{ paymentMethodSummary }</strong>,
-						},
-					}
-				) }
+				{ translate( 'Please update the following information for {{paymentMethodSummary/}}:', {
+					components: {
+						paymentMethodSummary: <strong>{ paymentMethodSummary }</strong>,
+					},
+				} ) }
 			</p>
 			{ form }
 		</Dialog>

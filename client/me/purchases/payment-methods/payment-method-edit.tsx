@@ -81,12 +81,14 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	const renderEditForm = (): JSX.Element => {
 		return (
 			<form onSubmit={ handleSubmit }>
-				<RenderEditFormFields
-					postalCodeValue={ postalCodeValue }
-					countryCodeValue={ countryCodeValue }
-					onChangePostalCode={ onChangePostalCode }
-					onChangeCountryCode={ onChangeCountryCode }
-				/>
+				<div className="contact-fields payment-method-edit__tax-fields">
+					<RenderEditFormFields
+						postalCodeValue={ postalCodeValue }
+						countryCodeValue={ countryCodeValue }
+						onChangePostalCode={ onChangePostalCode }
+						onChangeCountryCode={ onChangeCountryCode }
+					/>
+				</div>
 			</form>
 		);
 	};
@@ -94,7 +96,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	const formRender = renderEditForm();
 
 	const renderEditButton = () => {
-		const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
+		const text = isEditing ? translate( 'Editing' ) : translate( 'Action Required' );
 		if ( ! card.tax_postal_code || ! card.tax_country_code ) {
 			return (
 				<Button
