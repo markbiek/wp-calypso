@@ -88,7 +88,7 @@ export interface WpcomStep extends Step {
 			desktop: string | null;
 			mobile: string | null;
 		};
-		imgSrc: {
+		imgSrc?: {
 			desktop?: {
 				src: string;
 				type: string;

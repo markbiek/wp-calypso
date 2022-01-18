@@ -1,4 +1,4 @@
-import { TourKitContextProvider } from './tour-kit-context';
+// import { TourKitContextProvider } from './tour-kit-context';
 import TourKitPortal from './tour-kit-portal';
 import type { Config } from '../types';
 
@@ -13,11 +13,13 @@ const TourKit: React.FunctionComponent< Props > = ( { config } ) => {
 		throw new Error( 'no config no cream' );
 	}
 
-	return (
-		<TourKitContextProvider config={ config }>
-			<TourKitPortal />
-		</TourKitContextProvider>
-	);
+	return <TourKitPortal config={ config } />;
+
+	// return (
+	// 	<TourKitContextProvider config={ config }>
+	// 		<TourKitPortal />
+	// 	</TourKitContextProvider>
+	// );
 };
 
 export default TourKit;

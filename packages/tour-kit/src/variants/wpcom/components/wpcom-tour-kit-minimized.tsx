@@ -5,7 +5,7 @@ import { Icon, close } from '@wordpress/icons';
 import maximize from '../icons/maximize';
 import type { MinimizedTourRenderer } from '@automattic/tour-kit';
 
-const TourKitWPCOMMinimized: MinimizedTourRenderer = ( {
+const WpcomTourKitMinimized: MinimizedTourRenderer = ( {
 	steps,
 	onMaximize,
 	onDismiss,
@@ -45,4 +45,4 @@ const TourKitWPCOMMinimized: MinimizedTourRenderer = ( {
 	);
 };
 
-export default TourKitWPCOMMinimized;
+export default WpcomTourKitMinimized;

@@ -1,13 +1,12 @@
-/**
- * External Dependencies
- */
 import { createPortal, useEffect, useRef } from '@wordpress/element';
-/**
- * Internal Dependencies
- */
 import TourKitFrame from './tour-kit-frame';
+import type { Config } from '../types';
 
-const TourKitPortal: React.FunctionComponent = () => {
+interface Props {
+	config: Config;
+}
+
+const TourKitPortal: React.FunctionComponent< Props > = ( { config } ) => {
 	const portalParent = useRef( document.createElement( 'div' ) ).current;
 
 	useEffect( () => {
@@ -20,7 +19,7 @@ const TourKitPortal: React.FunctionComponent = () => {
 		};
 	}, [ portalParent ] );
 
-	return <div>{ createPortal( <TourKitFrame />, portalParent ) }</div>;
+	return <div>{ createPortal( <TourKitFrame config={ config } />, portalParent ) }</div>;
 };
 
 export default TourKitPortal;
