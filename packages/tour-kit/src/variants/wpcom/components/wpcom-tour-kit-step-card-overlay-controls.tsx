@@ -1,0 +1,36 @@
+import { Button, Flex } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import minimize from '../icons/minimize';
+import type { TourStepRendererProps } from '@automattic/tour-kit';
+
+function WpcomTourKitStepCardOverlayControls( {
+	onMinimize,
+	onDismiss,
+}: {
+	onMinimize: TourStepRendererProps[ 'onMinimize' ];
+	onDismiss: TourStepRendererProps[ 'onDismiss' ];
+} ) {
+	return (
+		<div className="wpcom-tour-kit-step-card-overlay-controls">
+			<Flex>
+				<Button
+					label={ __( 'Minimize Tour', 'full-site-editing' ) }
+					isPrimary
+					className="wpcom-tour-kit-step-card-overlay-controls__minimize-icon"
+					icon={ minimize }
+					iconSize={ 24 }
+					onClick={ onMinimize }
+				></Button>
+				<Button
+					label={ __( 'Close Tour', 'full-site-editing' ) }
+					isPrimary
+					icon={ close }
+					iconSize={ 24 }
+					onClick={ onDismiss( 'close-btn' ) }
+				></Button>
+			</Flex>
+		</div>
+	);
+}
+
+export default WpcomTourKitStepCardOverlayControls;

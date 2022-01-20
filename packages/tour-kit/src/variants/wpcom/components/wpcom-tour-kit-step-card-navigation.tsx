@@ -1,6 +1,5 @@
-import { Button, Flex } from '@wordpress/components';
+import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import minimize from '../icons/minimize';
 import type { TourStepRendererProps } from '@automattic/tour-kit';
 
 function WpcomTourKitStepCardNavigation( {
@@ -11,7 +10,7 @@ function WpcomTourKitStepCardNavigation( {
 	onNextStep,
 	onPreviousStep,
 	setInitialFocusedElement,
-} ) {
+}: TourStepRendererProps ) {
 	// These are defined on their own lines because of a minification issue.
 	// __('translations') do not always work correctly when used inside of ternary statements.
 	const startTourLabel = __( 'Try it out!', 'full-site-editing' );
@@ -19,11 +18,11 @@ function WpcomTourKitStepCardNavigation( {
 
 	return (
 		<>
-			<PaginationControl
+			{ /* <PaginationControl
 				currentPage={ currentStepIndex }
 				numberOfPages={ lastStepIndex + 1 }
 				setCurrentPage={ onGoToStep }
-			/>
+			/> */ }
 			<div>
 				{ currentStepIndex === 0 ? (
 					<Button isTertiary={ true } onClick={ onDismiss( 'no-thanks-btn' ) }>
@@ -45,36 +44,6 @@ function WpcomTourKitStepCardNavigation( {
 				</Button>
 			</div>
 		</>
-	);
-}
-
-function CardOverlayControls( {
-	onMinimize,
-	onDismiss,
-}: {
-	onMinimize: TourStepRendererProps[ 'onMinimize' ];
-	onDismiss: TourStepRendererProps[ 'onDismiss' ];
-} ) {
-	return (
-		<div className="wpcom-tour-kit-step-card__overlay-controls">
-			<Flex>
-				<Button
-					label={ __( 'Minimize Tour', 'full-site-editing' ) }
-					isPrimary
-					className="wpcom-tour-kit-step-card__minimize-icon"
-					icon={ minimize }
-					iconSize={ 24 }
-					onClick={ onMinimize }
-				></Button>
-				<Button
-					label={ __( 'Close Tour', 'full-site-editing' ) }
-					isPrimary
-					icon={ close }
-					iconSize={ 24 }
-					onClick={ onDismiss( 'close-btn' ) }
-				></Button>
-			</Flex>
-		</div>
 	);
 }
 

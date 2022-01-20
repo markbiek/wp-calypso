@@ -2,28 +2,11 @@ import { Button } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import classNames from 'classnames';
-// import { useTourKitContext } from '../../../components/tour-kit-context';
 import thumbsDown from '../icons/thumbs_down';
 import thumbsUp from '../icons/thumbs_up';
-import type { WpcomConfig } from '../../../types';
 
-interface Props {
-	currentStepIndex: number;
-	config: WpcomConfig;
-}
-
-const WpcomTourKitRating: React.FunctionComponent< Props > = ( { currentStepIndex, config } ) => {
-	// const { config } = useTourKitContext();
+const WpcomTourKitRating: React.FunctionComponent = () => {
 	let isDisabled = false;
-
-	// ---------------------------------
-	// @TODO CLK Use context/state instead for now and rethink persistence
-	// ---------------------------------
-	// const tourRating = useSelect( ( select ) =>
-	// 	select( 'automattic/wpcom-welcome-guide' ).getTourRating()
-	// );
-	// const { setTourRating } = useDispatch( 'automattic/wpcom-welcome-guide' );
-	// ---------------------------------
 
 	const [ tourRating, setTourRating ] = useState< 'thumbs-up' | 'thumbs-down' | null >( null );
 
@@ -36,8 +19,6 @@ const WpcomTourKitRating: React.FunctionComponent< Props > = ( { currentStepInde
 		}
 		isDisabled = true;
 		setTourRating( isThumbsUp ? 'thumbs-up' : 'thumbs-down' );
-		config.options?.callbacks?.onTourRate &&
-			config.options?.callbacks?.onTourRate( currentStepIndex, isThumbsUp );
 	};
 
 	return (

@@ -4,7 +4,7 @@
 @import '@wordpress/base-styles/variables';
 @import '@wordpress/base-styles/z-index';
 
-$welcome-tour-button-background-color: #32373c; // former $dark-gray-700. TODO: replace with standard color
+$wpcom-tour-kit-step-card-overlay-controls-button-bg-color: #32373c; // former $dark-gray-700. TODO: replace with standard color
 $welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the padding of the desktop instructional graphics
 
 .wpcom-tour-kit-minimized {
@@ -52,6 +52,7 @@ $welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the pa
 	}
 }
 
+// @todo clk - it this used?
 .wpcom-editor-welcome-tour-card-frame {
 	position: relative;
 
@@ -67,6 +68,7 @@ $welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the pa
 	}
 }
 
+// @todo clk - move/update
 .wpcom-editor-welcome-tour > .tour-kit-frame__container {
 	box-shadow: none;
 }
@@ -129,7 +131,7 @@ $welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the pa
 		padding-top: math.percentage( math.div( math.ceil( math.div( 1, 1.53 ) * 100 ), 100 ) ); // img width:height ratio (1:1.53)
 		position: relative;
 		width: 100%;
-        // TODO CLK: use welcome-tour-card class to keep specific to welcome tour
+        // @todo clk use welcome-tour-card class to keep specific to welcome tour
 		background-color: #e7eaeb; // the color of the background used in desktop graphics
 
 		img {
@@ -138,7 +140,7 @@ $welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the pa
 			top: 0;
 			width: 100%;
 		}
-    	// TODO CLK: use welcome-tour-card class to keep specific to welcome tour
+    	// @todo clk use welcome-tour-card class to keep specific to welcome tour
 		&.is-with-extra-padding img {
 			left: $welcome-tour-card-media-extra-padding;
 			top: $welcome-tour-card-media-extra-padding;
@@ -162,24 +164,24 @@ $welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the pa
 	}
 }
 
-.wpcom-tour-kit-step-card__minimize-icon svg {
+.wpcom-tour-kit-step-card-overlay-controls__minimize-icon svg {
 	position: relative;
 	left: -2px;
 }
 
-.wpcom-tour-kit-step-card__overlay-controls {
+.wpcom-tour-kit-step-card-overlay-controls {
 	left: 0;
 	padding: $grid-unit-15;
 	right: 0;
 	z-index: 1; // z-index is needed because overlay controls are written before components-card__media, and so ends up under the image
-    // TODO CLK: use welcome-tour-card class to keep specific to welcome tour
+    // @todo clk use welcome-tour-card class to keep specific to welcome tour
 	position: absolute;
 
 	.components-button {
 		width: 32px;
 		min-width: 32px;
 		height: 32px;
-		background: $welcome-tour-button-background-color;
+		background: $wpcom-tour-kit-step-card-overlay-controls-button-bg-color;
 		transition: opacity 200ms;
 		opacity: 0.7;
 
