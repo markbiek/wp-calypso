@@ -108,6 +108,8 @@ export const updateStoredCardTaxLocation = ( card, tax_postal_code, tax_country_
 			dispatch( {
 				type: STORED_CARDS_EDIT_COMPLETED,
 				card,
+				tax_postal_code,
+				tax_country_code,
 			} );
 		} )
 		.catch( ( error ) => {

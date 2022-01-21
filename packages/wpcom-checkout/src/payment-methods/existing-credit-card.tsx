@@ -5,14 +5,43 @@ import { useI18n } from '@wordpress/react-i18n';
 import debugFactory from 'debug';
 import { Fragment } from 'react';
 // eslint-disable-next-line no-restricted-imports
-import { PaymentMethod as PaymentMethodSavedDetails } from 'calypso/lib/checkout/payment-methods';
-// eslint-disable-next-line no-restricted-imports
 import PaymentMethodEdit from 'calypso/me/purchases/payment-methods/payment-method-edit';
 import { PaymentLogo } from '../payment-method-logos';
 import { SummaryLine, SummaryDetails } from '../summary-details';
 import type { PaymentMethod, ProcessPayment, LineItem } from '@automattic/composite-checkout';
 
 const debug = debugFactory( 'wpcom-checkout:existing-card-payment-method' );
+
+// Disabling this to make migration easier
+/* eslint-disable @typescript-eslint/no-use-before-define */
+interface PaymentMethodDetails {
+	added: string;
+	card: string;
+	card_type: string;
+	email: string;
+	expiry: string;
+	is_expired: boolean;
+	last_service: string;
+	last_used: string;
+	meta: PaymentMethodMeta[];
+	mp_ref: string;
+	name: string;
+	payment_partner: string;
+	remember: '1' | '0';
+	stored_details_id: string;
+	user_id: string;
+	tax_postal_code: string;
+	tax_country_code: string;
+	disabled?: boolean;
+}
+
+interface PaymentMethodMeta {
+	meta_key: string;
+	meta_value: string;
+	stored_details_id: string;
+	is_expired?: boolean;
+	meta: { meta_key: string; meta_value: string }[];
+}
 
 export function createExistingCardMethod( {
 	id,
@@ -25,6 +54,8 @@ export function createExistingCardMethod( {
 	paymentPartnerProcessorId,
 	activePayButtonText = undefined,
 	card,
+	tax_postal_code,
+	tax_country_code,
 }: {
 	id: string;
 	cardholderName: string;
@@ -35,10 +66,9 @@ export function createExistingCardMethod( {
 	paymentMethodToken: string;
 	paymentPartnerProcessorId: string;
 	activePayButtonText: string | undefined;
-	card: PaymentMethodSavedDetails;
+	card: PaymentMethodDetails;
 	tax_postal_code: string;
 	tax_country_code: string;
-	disabled: boolean;
 } ): PaymentMethod {
 	debug( 'creating a new existing credit card payment method', {
 		id,
@@ -47,13 +77,6 @@ export function createExistingCardMethod( {
 		brand,
 		last4,
 	} );
-
-	const isTaxLocationInfoMissing = (): boolean => {
-		if ( card.tax_postal_code && card.tax_country_code ) {
-			return false;
-		}
-		return true;
-	};
 
 	return {
 		id,
@@ -83,7 +106,7 @@ export function createExistingCardMethod( {
 				last4={ last4 }
 			/>
 		),
-		disabled: isTaxLocationInfoMissing(),
+		disabled: ! tax_postal_code || ! tax_country_code,
 		getAriaLabel: () => `${ brand } ${ last4 } ${ cardholderName }`,
 	};
 }
@@ -123,7 +146,7 @@ function ExistingCardLabel( {
 	cardExpiry: string;
 	cardholderName: string;
 	brand: string;
-	card: PaymentMethodSavedDetails;
+	card: PaymentMethodDetails;
 } ): JSX.Element {
 	const { __, _x } = useI18n();
 
