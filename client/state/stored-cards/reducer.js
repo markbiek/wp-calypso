@@ -32,10 +32,13 @@ export const items = withSchemaValidation( storedCardsSchema, ( state = [], acti
 			return [ ...state, item ];
 		}
 		case STORED_CARDS_EDIT_COMPLETED: {
-			const { card } = action;
-			return state.filter(
-				( item ) => ! card.allStoredDetailsIds.includes( item.stored_details_id )
-			);
+			const { card, tax_postal_code, tax_country_code } = action;
+			return state.map( ( item ) => {
+				if ( ! card.allStoredDetailsIds.includes( item.stored_details_id ) ) {
+					return item;
+				}
+				return { ...card, tax_postal_code, tax_country_code };
+			} );
 		}
 		case STORED_CARDS_FETCH_COMPLETED: {
 			const { list } = action;
@@ -54,7 +57,7 @@ export const items = withSchemaValidation( storedCardsSchema, ( state = [], acti
 					return {
 						...item,
 						meta: [
-							...item.meta?.filter( ( meta ) => meta.meta_key !== 'is_backup' ),
+							...( item.meta?.filter( ( meta ) => meta.meta_key !== 'is_backup' ) ?? {} ),
 							{ meta_key: 'is_backup', meta_value: is_backup ? 'backup' : null },
 						],
 					};
