@@ -24,6 +24,7 @@ describe( 'items', () => {
 		expect( reducer( undefined, { type: 'UNRELATED' } ) ).to.be.eql( {
 			items: [],
 			isFetching: false,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: false,
 		} );
@@ -33,6 +34,7 @@ describe( 'items', () => {
 		expect( reducer( undefined, { type: STORED_CARDS_FETCH } ) ).to.be.eql( {
 			items: [],
 			isFetching: true,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: false,
 		} );
@@ -47,6 +49,7 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
@@ -60,6 +63,7 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: [],
 			isFetching: false,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: false,
 		} );
@@ -81,6 +85,7 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
@@ -103,6 +108,7 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
+			isEditing: {},
 			isDeleting: { 1234567: true },
 			hasLoadedFromServer: true,
 		} );
@@ -125,6 +131,7 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API.slice( 1, 4 ),
 			isFetching: false,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
@@ -147,28 +154,10 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
+			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
-	} );
-
-	test( 'should modify the stored card is_backup property correctly when is_backup is enabled', () => {
-		const state = reducer(
-			deepFreeze( {
-				items: STORED_CARDS_FROM_API,
-				isFetching: false,
-				hasLoadedFromServer: true,
-			} ),
-			{
-				type: STORED_CARDS_UPDATE_IS_BACKUP_COMPLETED,
-				stored_details_id: STORED_CARDS_FROM_API[ 0 ].stored_details_id,
-				is_backup: 'backup',
-			}
-		);
-
-		expect(
-			state.items[ 0 ].meta.find( ( meta ) => meta.meta_key === 'is_backup' ).meta_value
-		).to.be.eql( 'backup' );
 	} );
 
 	test( 'should modify the stored card is_backup property correctly when is_backup is disabled', () => {
