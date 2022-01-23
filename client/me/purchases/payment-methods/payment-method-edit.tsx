@@ -94,6 +94,7 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 	};
 
 	const formRender = renderEditForm();
+	const showButton = ! card.tax_postal_code || ! card.tax_country_code;
 
 	return (
 		<>
@@ -110,10 +111,10 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				card={ card }
 				form={ formRender }
 			/>
-			{ /* { renderEditButton() } */ }
 			<PaymentMethodEditButton
 				onClick={ () => setIsDialogVisible( true ) }
 				isEditing={ isEditing }
+				show={ showButton }
 			/>
 		</>
 	);
