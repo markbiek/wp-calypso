@@ -1,4 +1,3 @@
-import { Button } from '@automattic/components';
 import { useTranslate } from 'i18n-calypso';
 import { FunctionComponent, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +12,7 @@ import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions'
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
 import { CalypsoDispatch } from 'calypso/state/types';
 import RenderEditFormFields from './components/payment-method-edit-form-fields';
+import PaymentMethodEditButton from './payment-method-edit-button';
 import PaymentMethodEditDialog from './payment-method-edit-dialog';
 
 interface Props {
@@ -95,21 +95,6 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 
 	const formRender = renderEditForm();
 
-	const renderEditButton = () => {
-		const text = isEditing ? translate( 'Editing' ) : translate( 'Action Required' );
-		if ( ! card.tax_postal_code || ! card.tax_country_code ) {
-			return (
-				<Button
-					className="payment-method-edit__button"
-					disabled={ isEditing }
-					onClick={ () => setIsDialogVisible( true ) }
-				>
-					{ text }
-				</Button>
-			);
-		}
-	};
-
 	return (
 		<>
 			<PaymentMethodEditDialog
@@ -125,7 +110,11 @@ const PaymentMethodEdit: FunctionComponent< Props > = ( { card } ) => {
 				card={ card }
 				form={ formRender }
 			/>
-			{ renderEditButton() }
+			{ /* { renderEditButton() } */ }
+			<PaymentMethodEditButton
+				onClick={ () => setIsDialogVisible( true ) }
+				isEditing={ isEditing }
+			/>
 		</>
 	);
 };

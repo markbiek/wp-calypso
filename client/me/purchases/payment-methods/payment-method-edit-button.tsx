@@ -1,25 +1,19 @@
 import { Button } from '@automattic/components';
 import { useTranslate } from 'i18n-calypso';
 import { FunctionComponent } from 'react';
-import { useSelector } from 'react-redux';
-import { PaymentMethod } from 'calypso/lib/checkout/payment-methods';
-import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
 
 interface Props {
-	card: PaymentMethod;
 	onClick: () => void;
+	isEditing: boolean;
 }
 
-const PaymentMethodEditButton: FunctionComponent< Props > = ( { card, onClick } ) => {
+const PaymentMethodEditButton: FunctionComponent< Props > = ( { onClick, isEditing } ) => {
 	const translate = useTranslate();
-	const isEditing = useSelector( ( state ) =>
-		isEditingStoredCard( state, card.stored_details_id )
-	);
-
-	const text = isEditing ? translate( 'Editing' ) : translate( 'Add Payment Location Info' );
+	const editing = isEditing;
+	const buttonText = editing ? translate( 'Editing' ) : translate( 'Update Payment Info' );
 	return (
 		<Button className="payment-method-edit-button" onClick={ onClick } disabled={ isEditing }>
-			{ text }
+			{ buttonText }
 		</Button>
 	);
 };
