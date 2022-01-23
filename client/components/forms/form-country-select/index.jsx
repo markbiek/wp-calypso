@@ -1,5 +1,6 @@
 import classnames from 'classnames';
-import { localize } from 'i18n-calypso';
+// import { localize } from 'i18n-calypso';
+import { useTranslate } from 'i18n-calypso';
 import { isEmpty, omit } from 'lodash';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
@@ -8,6 +9,7 @@ import FormSelect from 'calypso/components/forms/form-select';
 import './style.scss';
 
 export class FormCountrySelect extends Component {
+	static translate = useTranslate();
 	static propTypes = {
 		countriesList: PropTypes.array.isRequired,
 		className: PropTypes.string,
@@ -64,4 +66,4 @@ export class FormCountrySelect extends Component {
 	}
 }
 
-export default localize( FormCountrySelect );
+export default FormCountrySelect;
