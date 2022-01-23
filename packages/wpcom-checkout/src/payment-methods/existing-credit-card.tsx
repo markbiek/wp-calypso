@@ -23,7 +23,7 @@ interface PaymentMethodDetails {
 	is_expired: boolean;
 	last_service: string;
 	last_used: string;
-	meta: PaymentMethodMeta[];
+	meta: PaymentMethodDetailsMeta[];
 	mp_ref: string;
 	name: string;
 	payment_partner: string;
@@ -35,7 +35,7 @@ interface PaymentMethodDetails {
 	disabled?: boolean;
 }
 
-interface PaymentMethodMeta {
+interface PaymentMethodDetailsMeta {
 	meta_key: string;
 	meta_value: string;
 	stored_details_id: string;
