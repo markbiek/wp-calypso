@@ -12,8 +12,8 @@ import { updateStoredCardTaxLocation } from 'calypso/state/stored-cards/actions'
 import { isEditingStoredCard } from 'calypso/state/stored-cards/selectors';
 import { CalypsoDispatch } from 'calypso/state/types';
 import PaymentMethodEditButton from './components/payment-method-edit-button';
+import PaymentMethodEditDialog from './components/payment-method-edit-dialog';
 import RenderEditFormFields from './components/payment-method-edit-form-fields';
-import PaymentMethodEditDialog from './payment-method-edit-dialog';
 
 interface Props {
 	card: PaymentMethod;
