@@ -24,7 +24,6 @@ describe( 'items', () => {
 		expect( reducer( undefined, { type: 'UNRELATED' } ) ).to.be.eql( {
 			items: [],
 			isFetching: false,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: false,
 		} );
@@ -34,7 +33,6 @@ describe( 'items', () => {
 		expect( reducer( undefined, { type: STORED_CARDS_FETCH } ) ).to.be.eql( {
 			items: [],
 			isFetching: true,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: false,
 		} );
@@ -49,7 +47,6 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
@@ -63,7 +60,6 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: [],
 			isFetching: false,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: false,
 		} );
@@ -85,7 +81,6 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
@@ -108,7 +103,6 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
-			isEditing: {},
 			isDeleting: { 1234567: true },
 			hasLoadedFromServer: true,
 		} );
@@ -131,7 +125,6 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API.slice( 1, 4 ),
 			isFetching: false,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
@@ -154,7 +147,6 @@ describe( 'items', () => {
 		expect( state ).to.be.eql( {
 			items: STORED_CARDS_FROM_API,
 			isFetching: false,
-			isEditing: {},
 			isDeleting: {},
 			hasLoadedFromServer: true,
 		} );
