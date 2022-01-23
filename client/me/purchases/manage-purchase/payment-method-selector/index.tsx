@@ -215,7 +215,7 @@ export default function PaymentMethodSelector( {
 function GetInitiallySelectedPaymentMethodId(
 	currentlyAssignedPaymentMethodId: string,
 	paymentMethods: PaymentMethod[]
-): string | void {
+): string | null {
 	// const translate = useTranslate();
 	// const noticeProps: Record< string, boolean | string | number | TranslateResult > = {
 	// 	showDismiss: false,
@@ -240,7 +240,7 @@ function GetInitiallySelectedPaymentMethodId(
 		return currentlyAssignedPaymentMethodId;
 	}
 
-	return;
+	return null;
 }
 
 function onPaymentSelectComplete( {

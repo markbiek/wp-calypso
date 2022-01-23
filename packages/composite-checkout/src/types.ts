@@ -115,7 +115,7 @@ export interface CheckoutProviderProps {
 	redirectToUrl?: ( url: string ) => void;
 	paymentProcessors: PaymentProcessorProp;
 	isValidating?: boolean;
-	initiallySelectedPaymentMethodId?: string | void;
+	initiallySelectedPaymentMethodId?: string | null;
 	children: React.ReactNode;
 }
 
