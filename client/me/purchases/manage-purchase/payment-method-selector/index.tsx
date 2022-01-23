@@ -181,7 +181,7 @@ export default function PaymentMethodSelector( {
 					),
 			} }
 			isLoading={ isStripeLoading }
-			initiallySelectedPaymentMethodId={ getInitiallySelectedPaymentMethodId(
+			initiallySelectedPaymentMethodId={ GetInitiallySelectedPaymentMethodId(
 				currentlyAssignedPaymentMethodId,
 				paymentMethods
 			) }
@@ -210,20 +210,38 @@ export default function PaymentMethodSelector( {
 	);
 }
 
-// We want to preselect the current method if it is in the list, but if not, preselect the first method.
-function getInitiallySelectedPaymentMethodId(
+// We want to preselect the current method if it is in the list and enabled, but if not, preselect the first non-disabled method.
+
+function GetInitiallySelectedPaymentMethodId(
 	currentlyAssignedPaymentMethodId: string,
 	paymentMethods: PaymentMethod[]
-) {
+): string | JSX.Element {
+	const translate = useTranslate();
+	const noticeProps: Record< string, boolean | string | number | TranslateResult > = {
+		showDismiss: false,
+	};
+	const enabledPaymentMethods = paymentMethods.filter(
+		( paymentMethod ) => ! paymentMethod.disabled
+	);
+
 	if (
-		! paymentMethods.some(
+		! enabledPaymentMethods.some(
 			( paymentMethod ) => paymentMethod.id === currentlyAssignedPaymentMethodId
 		)
 	) {
-		return paymentMethods?.[ 0 ]?.id;
+		return enabledPaymentMethods?.[ 0 ]?.id;
 	}
 
-	return currentlyAssignedPaymentMethodId;
+	if (
+		enabledPaymentMethods.some(
+			( paymentMethod ) => paymentMethod.id === currentlyAssignedPaymentMethodId
+		)
+	) {
+		return currentlyAssignedPaymentMethodId;
+	}
+
+	noticeProps.text = translate( 'Please select an enabled payment method.' );
+	return <Notice { ...noticeProps } />;
 }
 
 function onPaymentSelectComplete( {
