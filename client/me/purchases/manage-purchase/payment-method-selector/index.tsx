@@ -215,11 +215,11 @@ export default function PaymentMethodSelector( {
 function GetInitiallySelectedPaymentMethodId(
 	currentlyAssignedPaymentMethodId: string,
 	paymentMethods: PaymentMethod[]
-): string | JSX.Element {
-	const translate = useTranslate();
-	const noticeProps: Record< string, boolean | string | number | TranslateResult > = {
-		showDismiss: false,
-	};
+): string | void {
+	// const translate = useTranslate();
+	// const noticeProps: Record< string, boolean | string | number | TranslateResult > = {
+	// 	showDismiss: false,
+	// };
 	const enabledPaymentMethods = paymentMethods.filter(
 		( paymentMethod ) => ! paymentMethod.disabled
 	);
@@ -240,8 +240,7 @@ function GetInitiallySelectedPaymentMethodId(
 		return currentlyAssignedPaymentMethodId;
 	}
 
-	noticeProps.text = translate( 'Please select an enabled payment method.' );
-	return <Notice { ...noticeProps } />;
+	return;
 }
 
 function onPaymentSelectComplete( {
