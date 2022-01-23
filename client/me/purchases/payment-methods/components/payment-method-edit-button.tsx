@@ -9,8 +9,7 @@ interface Props {
 
 const PaymentMethodEditButton: FunctionComponent< Props > = ( { onClick, isEditing } ) => {
 	const translate = useTranslate();
-	const editing = isEditing;
-	const buttonText = editing ? translate( 'Editing' ) : translate( 'Update Payment Info' );
+	const buttonText = isEditing ? translate( 'Editing' ) : translate( 'Update Payment Info' );
 	return (
 		<Button className="payment-method-edit-button" onClick={ onClick } disabled={ isEditing }>
 			{ buttonText }
