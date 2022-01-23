@@ -39,8 +39,6 @@ interface PaymentMethodMeta {
 	meta_key: string;
 	meta_value: string;
 	stored_details_id: string;
-	is_expired?: boolean;
-	meta: { meta_key: string; meta_value: string }[];
 }
 
 export function createExistingCardMethod( {
