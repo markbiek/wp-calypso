@@ -12,7 +12,7 @@ interface Props {
 	isVisible: boolean;
 	onClose: () => void;
 	onConfirm: ( event: React.MouseEvent< HTMLButtonElement > ) => void;
-	form: unknown;
+	form: JSX.Element;
 }
 
 const PaymentMethodEditDialog: FunctionComponent< Props > = ( {
