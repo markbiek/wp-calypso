@@ -7,6 +7,8 @@ import './style.scss';
 
 function FormCountrySelect( { countriesList, className, onChange, disabled } ) {
 	const translate = useTranslate();
+	const countrySelectorLabelId = 'country-selector-label';
+	const countrySelectorDescriptionId = 'country-selector-description';
 
 	function getOptions() {
 		if ( isEmpty( countriesList ) ) {
@@ -40,6 +42,9 @@ function FormCountrySelect( { countriesList, className, onChange, disabled } ) {
 			className={ classnames( className, 'form-country-select' ) }
 			onChange={ onChange }
 			disabled={ disabled }
+			id={ 'country-selector' }
+			aria-labelledby={ countrySelectorLabelId }
+			aria-describedby={ countrySelectorDescriptionId }
 		>
 			{ options.map( function ( option ) {
 				return (
