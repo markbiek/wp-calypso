@@ -26,7 +26,6 @@ export default function TaxCountrySelectMenu( {
 			errorDescription={ errorMessage }
 		>
 			<FormCountrySelect
-				id={ countrySelectorId }
 				countriesList={ [
 					{ code: '', name: translate( 'Select Country' ) },
 					{ code: null, name: '' },
@@ -36,8 +35,6 @@ export default function TaxCountrySelectMenu( {
 				onChange={ onChange }
 				disabled={ isDisabled }
 				value={ currentValue }
-				aria-labelledby={ countrySelectorLabelId }
-				aria-describedby={ countrySelectorDescriptionId }
 			/>
 		</FormFieldAnnotation>
 	);
