@@ -158,7 +158,7 @@ __metadata:
     css-loader: ^6.5.1
     css-minimizer-webpack-plugin: ^3.2.0
     duplicate-package-checker-webpack-plugin: ^3.0.0
-    mini-css-extract-plugin: ^1.6.2
+    mini-css-extract-plugin: ^2.5.3
     postcss-custom-properties: ^11.0.0
     postcss-loader: ^6.2.0
     recursive-copy: ^2.0.10
@@ -1267,7 +1267,7 @@ __metadata:
     "@automattic/calypso-typescript-config": "workspace:^"
     "@romainberger/css-diff": ^1.0.3
     css-loader: ^6.5.1
-    mini-css-extract-plugin: ^1.6.2
+    mini-css-extract-plugin: ^2.5.3
     rtlcss: ^3.1.2
     webpack: ^5.65.0
   peerDependencies:
@@ -25868,27 +25868,14 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "mini-css-extract-plugin@npm:1.6.2"
+"mini-css-extract-plugin@npm:^2.1.0, mini-css-extract-plugin@npm:^2.5.3":
+  version: 2.5.3
+  resolution: "mini-css-extract-plugin@npm:2.5.3"
   dependencies:
-    loader-utils: ^2.0.0
-    schema-utils: ^3.0.0
-    webpack-sources: ^1.1.0
-  peerDependencies:
-    webpack: ^4.4.0 || ^5.0.0
-  checksum: 138c008f8a510012266d2834227e75181feeffd09e89e9cde0a63f17be3d64ea3ddbba01036aac9c8a969462c0142285659a20c294e8d01ba948aa1124affdc2
-  languageName: node
-  linkType: hard
-
-"mini-css-extract-plugin@npm:^2.1.0":
-  version: 2.3.0
-  resolution: "mini-css-extract-plugin@npm:2.3.0"
-  dependencies:
-    schema-utils: ^3.1.0
+    schema-utils: ^4.0.0
   peerDependencies:
     webpack: ^5.0.0
-  checksum: d85b0cce58b824740bdd3470d8da100196802f5816c7a60939bd19b418cc06a4b8db8aef2f0ecb9b70051b251eb1a89dc036211a764059d9dcd181b1c2529f73
+  checksum: aeb70639d0f7af6e7ee96842a30ad5446922ed5afca4c7bb36c868809b839e59fcfe78d78c89a7b2270d0d6c6d3e5cbccce6c471a66e18afa7280ccb0135eaa4
   languageName: node
   linkType: hard
 
@@ -37598,7 +37585,7 @@ testarmada-magellan@11.0.10:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^1.1.0, webpack-sources@npm:^1.4.0, webpack-sources@npm:^1.4.1, webpack-sources@npm:^1.4.3":
+"webpack-sources@npm:^1.4.0, webpack-sources@npm:^1.4.1, webpack-sources@npm:^1.4.3":
   version: 1.4.3
   resolution: "webpack-sources@npm:1.4.3"
   dependencies:
@@ -38121,7 +38108,7 @@ testarmada-magellan@11.0.10:
     loader-utils: ^1.2.3
     lodash: ^4.17.21
     lunr: ^2.3.8
-    mini-css-extract-plugin: ^1.6.2
+    mini-css-extract-plugin: ^2.5.3
     mixedindentlint: ^1.2.0
     mkdirp: ^1.0.4
     ncp: ^2.0.0
