@@ -1,16 +1,16 @@
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import type { TourStepRendererProps } from '@automattic/tour-kit';
+import type { WpcomTourStepRendererProps } from '../../../types';
 
-function WpcomTourKitStepCardNavigation( {
+type Props = Omit< WpcomTourStepRendererProps, 'onMinimize' | 'steps' | 'onGoToStep' >;
+
+const WpcomTourKitStepCardNavigation: React.FunctionComponent< Props > = ( {
 	currentStepIndex,
-	lastStepIndex,
 	onDismiss,
-	onGoToStep,
 	onNextStep,
 	onPreviousStep,
 	setInitialFocusedElement,
-}: TourStepRendererProps ) {
+} ) => {
 	// These are defined on their own lines because of a minification issue.
 	// __('translations') do not always work correctly when used inside of ternary statements.
 	const startTourLabel = __( 'Try it out!', 'full-site-editing' );
@@ -45,6 +45,6 @@ function WpcomTourKitStepCardNavigation( {
 			</div>
 		</>
 	);
-}
+};
 
 export default WpcomTourKitStepCardNavigation;

@@ -1,5 +1,6 @@
 // import { TourKitContextProvider } from './tour-kit-context';
-import TourKitPortal from './tour-kit-portal';
+import { createPortal, useEffect, useRef } from '@wordpress/element';
+import TourKitFrame from './tour-kit-frame';
 import type { Config } from '../types';
 
 import '../styles.scss';
@@ -13,13 +14,18 @@ const TourKit: React.FunctionComponent< Props > = ( { config } ) => {
 		throw new Error( 'no config no cream' );
 	}
 
-	return <TourKitPortal config={ config } />;
+	const portalParent = useRef( document.createElement( 'div' ) ).current;
 
-	// return (
-	// 	<TourKitContextProvider config={ config }>
-	// 		<TourKitPortal />
-	// 	</TourKitContextProvider>
-	// );
+	useEffect( () => {
+		portalParent.classList.add( 'tour-kit' );
+		document.body.appendChild( portalParent );
+
+		return () => {
+			document.body.removeChild( portalParent );
+		};
+	}, [ portalParent ] );
+
+	return <div>{ createPortal( <TourKitFrame config={ config } />, portalParent ) }</div>;
 };
 
 export default TourKit;

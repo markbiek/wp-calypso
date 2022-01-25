@@ -19,28 +19,27 @@ export interface Step {
 }
 
 export interface TourStepRendererProps {
-	steps: Steps;
+	steps: Step[];
 	currentStepIndex: number;
 	onDismiss: ( source: string ) => () => void;
-	onNext: () => void;
-	onPrevious: () => void;
+	onNextStep: () => void;
+	onPreviousStep: () => void;
 	onMinimize: () => void;
 	setInitialFocusedElement: React.Dispatch< React.SetStateAction< HTMLElement | null > >;
 	onGoToStep: ( stepIndex: number ) => void;
 }
 
 export interface MinimizedTourRendererProps {
-	steps: Steps;
+	steps: Step[];
 	currentStepIndex: number;
 	onMaximize: () => void;
 	onDismiss: ( source: string ) => () => void;
 }
 
-export type Steps = Step[];
 export type TourStepRenderer = React.FunctionComponent< TourStepRendererProps >;
 export type MinimizedTourRenderer = React.FunctionComponent< MinimizedTourRendererProps >;
 export type Callback = ( currentStepIndex: number ) => void;
-export type CloseHandler = ( steps: Steps, currentStepIndex: number, source: string ) => void;
+export type CloseHandler = ( steps: Step[], currentStepIndex: number, source: string ) => void;
 export type PopperModifier = Partial< Modifier< unknown, Record< string, unknown > > >;
 
 export interface Callbacks {
@@ -64,7 +63,7 @@ export interface Options {
 }
 
 export interface Config {
-	steps: Steps;
+	steps: Step[];
 	renderers: {
 		tourStep: TourStepRenderer;
 		tourMinimized: MinimizedTourRenderer;
@@ -84,7 +83,7 @@ export type OnTourRateCallback = ( currentStepIndex: number, liked: boolean ) =>
 export interface WpcomStep extends Step {
 	meta: {
 		heading: string | null;
-		description: {
+		descriptions: {
 			desktop: string | null;
 			mobile: string | null;
 		};
@@ -101,6 +100,9 @@ export interface WpcomStep extends Step {
 	};
 }
 
+export interface WpcomTourStepRendererProps extends TourStepRendererProps {
+	steps: WpcomStep[];
+}
 export interface WpcomCallbacks extends Callbacks {
 	onTourRate?: OnTourRateCallback; // called when rating the tour (for the variant that provides tour rating)
 }

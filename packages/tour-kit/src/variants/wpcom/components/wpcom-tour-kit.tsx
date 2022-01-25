@@ -2,7 +2,7 @@ import TourKit from '../../../components/tour-kit';
 import WpcomTourKitMinimized from './wpcom-tour-kit-minimized';
 import WpcomTourKitStep from './wpcom-tour-kit-step';
 import '../styles.scss';
-import type { WpcomConfig } from '../../../types';
+import type { WpcomConfig, TourStepRenderer } from '../../../types';
 
 interface Props {
 	config: WpcomConfig;
@@ -18,7 +18,7 @@ const WpcomTourKit: React.FunctionComponent< Props > = ( { config } ) => {
 			config={ {
 				...config,
 				renderers: {
-					tourStep: WpcomTourKitStep,
+					tourStep: WpcomTourKitStep as TourStepRenderer,
 					tourMinimized: WpcomTourKitMinimized,
 				},
 			} }

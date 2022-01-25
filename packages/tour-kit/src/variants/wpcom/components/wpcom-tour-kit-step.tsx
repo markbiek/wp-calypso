@@ -1,7 +1,7 @@
 import WpcomTourKitStepCard from './wpcom-tour-kit-step-card';
-import type { TourStepRenderer } from '@automattic/tour-kit';
+import type { WpcomTourStepRendererProps } from '../../../types';
 
-const WpcomTourKitStep: TourStepRenderer = ( {
+const WpcomTourKitStep: React.FunctionComponent< WpcomTourStepRendererProps > = ( {
 	steps,
 	currentStepIndex,
 	onDismiss,

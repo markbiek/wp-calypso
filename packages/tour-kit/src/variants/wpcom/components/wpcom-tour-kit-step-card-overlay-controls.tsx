@@ -1,15 +1,17 @@
 import { Button, Flex } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import minimize from '../icons/minimize';
-import type { TourStepRendererProps } from '@automattic/tour-kit';
+import type { TourStepRendererProps } from '../../../types';
 
-function WpcomTourKitStepCardOverlayControls( {
-	onMinimize,
-	onDismiss,
-}: {
+interface Props {
 	onMinimize: TourStepRendererProps[ 'onMinimize' ];
 	onDismiss: TourStepRendererProps[ 'onDismiss' ];
-} ) {
+}
+
+const WpcomTourKitStepCardOverlayControls: React.FunctionComponent< Props > = ( {
+	onMinimize,
+	onDismiss,
+} ) => {
 	return (
 		<div className="wpcom-tour-kit-step-card-overlay-controls">
 			<Flex>
@@ -31,6 +33,6 @@ function WpcomTourKitStepCardOverlayControls( {
 			</Flex>
 		</div>
 	);
-}
+};
 
 export default WpcomTourKitStepCardOverlayControls;

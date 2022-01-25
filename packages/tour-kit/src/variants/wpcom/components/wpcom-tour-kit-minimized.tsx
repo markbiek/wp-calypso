@@ -3,9 +3,9 @@ import { createInterpolateElement } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { Icon, close } from '@wordpress/icons';
 import maximize from '../icons/maximize';
-import type { MinimizedTourRenderer } from '@automattic/tour-kit';
+import type { MinimizedTourRendererProps } from '@automattic/tour-kit';
 
-const WpcomTourKitMinimized: MinimizedTourRenderer = ( {
+const WpcomTourKitMinimized: React.FunctionComponent< MinimizedTourRendererProps > = ( {
 	steps,
 	onMaximize,
 	onDismiss,
