@@ -1,4 +1,5 @@
 import TourKit from '../../../components/tour-kit';
+import usePrefetchTourAssets from '../hooks/use-prefetch-tour-assets';
 import WpcomTourKitMinimized from './wpcom-tour-kit-minimized';
 import WpcomTourKitStep from './wpcom-tour-kit-step';
 import '../styles.scss';
@@ -13,8 +14,11 @@ const WpcomTourKit: React.FunctionComponent< Props > = ( { config } ) => {
 		throw new Error( 'no config no cream' );
 	}
 
+	usePrefetchTourAssets( config.steps );
+
 	return (
 		<TourKit
+			__temp__className={ 'wpcom-tour-kit' }
 			config={ {
 				...config,
 				renderers: {

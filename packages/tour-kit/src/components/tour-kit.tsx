@@ -7,9 +7,10 @@ import '../styles.scss';
 
 interface Props {
 	config: Config;
+	__temp__className?: string;
 }
 
-const TourKit: React.FunctionComponent< Props > = ( { config } ) => {
+const TourKit: React.FunctionComponent< Props > = ( { config, __temp__className } ) => {
 	if ( config === undefined ) {
 		throw new Error( 'no config no cream' );
 	}
@@ -17,13 +18,14 @@ const TourKit: React.FunctionComponent< Props > = ( { config } ) => {
 	const portalParent = useRef( document.createElement( 'div' ) ).current;
 
 	useEffect( () => {
-		portalParent.classList.add( 'tour-kit' );
+		const classes = [ 'tour-kit', ...( __temp__className ? [ __temp__className ] : [] ) ];
+		portalParent.classList.add( ...classes );
 		document.body.appendChild( portalParent );
 
 		return () => {
 			document.body.removeChild( portalParent );
 		};
-	}, [ portalParent ] );
+	}, [ __temp__className, portalParent ] );
 
 	return <div>{ createPortal( <TourKitFrame config={ config } />, portalParent ) }</div>;
 };

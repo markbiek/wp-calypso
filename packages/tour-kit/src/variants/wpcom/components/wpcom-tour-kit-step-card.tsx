@@ -22,6 +22,9 @@ const WpcomTourKitStepCard: React.FunctionComponent< WpcomTourStepRendererProps 
 
 	const description = descriptions[ isMobile() ? 'mobile' : 'desktop' ] ?? descriptions.desktop;
 
+	// @todo check why the assertion is needed here to pass TS
+	const mediaQueryList = getMediaQueryList( MOBILE_BREAKPOINT ) as MediaQueryList | undefined;
+
 	return (
 		<Card className="wpcom-tour-kit-step-card" isElevated>
 			<WpcomTourKitStepCardOverlayControls onDismiss={ onDismiss } onMinimize={ onMinimize } />
@@ -33,7 +36,7 @@ const WpcomTourKitStepCard: React.FunctionComponent< WpcomTourStepRendererProps 
 							<source
 								srcSet={ imgSrc.mobile.src }
 								type={ imgSrc.mobile.type }
-								media={ getMediaQueryList( MOBILE_BREAKPOINT )?.media }
+								media={ mediaQueryList?.media }
 							/>
 						) }
 						<img
