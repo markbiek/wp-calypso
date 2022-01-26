@@ -19,6 +19,7 @@ const TourKit: React.FunctionComponent< Props > = ( { config, __temp__className 
 
 	useEffect( () => {
 		const classes = [ 'tour-kit', ...( __temp__className ? [ __temp__className ] : [] ) ];
+
 		portalParent.classList.add( ...classes );
 		document.body.appendChild( portalParent );
 
