@@ -18,11 +18,6 @@ const WpcomTourKitStepCardNavigation: React.FunctionComponent< Props > = ( {
 
 	return (
 		<>
-			{ /* <PaginationControl
-				currentPage={ currentStepIndex }
-				numberOfPages={ lastStepIndex + 1 }
-				setCurrentPage={ onGoToStep }
-			/> */ }
 			<div>
 				{ currentStepIndex === 0 ? (
 					<Button isTertiary={ true } onClick={ onDismiss( 'no-thanks-btn' ) }>

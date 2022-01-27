@@ -13,6 +13,7 @@ const WpcomTourKitRating: React.FunctionComponent = () => {
 	if ( ! isDisabled && tourRating ) {
 		isDisabled = true;
 	}
+
 	const rateTour = ( isThumbsUp: boolean ) => {
 		if ( isDisabled ) {
 			return;

@@ -1,5 +1,6 @@
 // import { TourKitContextProvider } from './tour-kit-context';
 import { createPortal, useEffect, useRef } from '@wordpress/element';
+import ErrorBoundary from '../error-boundary';
 import TourKitFrame from './tour-kit-frame';
 import type { Config } from '../types';
 
@@ -11,10 +12,6 @@ interface Props {
 }
 
 const TourKit: React.FunctionComponent< Props > = ( { config, __temp__className } ) => {
-	if ( config === undefined ) {
-		throw new Error( 'no config no cream' );
-	}
-
 	const portalParent = useRef( document.createElement( 'div' ) ).current;
 
 	useEffect( () => {
@@ -28,7 +25,11 @@ const TourKit: React.FunctionComponent< Props > = ( { config, __temp__className 
 		};
 	}, [ __temp__className, portalParent ] );
 
-	return <div>{ createPortal( <TourKitFrame config={ config } />, portalParent ) }</div>;
+	return (
+		<ErrorBoundary>
+			<div>{ createPortal( <TourKitFrame config={ config } />, portalParent ) }</div>
+		</ErrorBoundary>
+	);
 };
 
 export default TourKit;

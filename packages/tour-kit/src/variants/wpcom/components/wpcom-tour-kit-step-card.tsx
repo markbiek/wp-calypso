@@ -28,7 +28,6 @@ const WpcomTourKitStepCard: React.FunctionComponent< WpcomTourStepRendererProps 
 	return (
 		<Card className="wpcom-tour-kit-step-card" isElevated>
 			<WpcomTourKitStepCardOverlayControls onDismiss={ onDismiss } onMinimize={ onMinimize } />
-			{ /* TODO: Update selector for images in @wordpress/components/src/card/styles/card-styles.js */ }
 			{ imgSrc && (
 				<CardMedia className="wpcom-tour-kit-step-card__media">
 					<picture>

@@ -10,10 +10,6 @@ interface Props {
 }
 
 const WpcomTourKit: React.FunctionComponent< Props > = ( { config } ) => {
-	if ( config === undefined ) {
-		throw new Error( 'no config no cream' );
-	}
-
 	usePrefetchTourAssets( config.steps );
 
 	return (

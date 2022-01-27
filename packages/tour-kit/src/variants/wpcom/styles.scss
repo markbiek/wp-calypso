@@ -5,7 +5,6 @@
 @import '@wordpress/base-styles/z-index';
 
 $wpcom-tour-kit-step-card-overlay-controls-button-bg-color: #32373c; // former $dark-gray-700. TODO: replace with standard color
-$welcome-tour-card-media-extra-padding: 14%; // temporary value, to match the padding of the desktop instructional graphics
 
 .wpcom-tour-kit-minimized {
 	border-radius: 2px;
