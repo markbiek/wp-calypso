@@ -12,7 +12,7 @@ import { BlockEditorSettings } from 'calypso/data/block-editor/use-block-editor-
 import withBlockEditorSettings from 'calypso/data/block-editor/with-block-editor-settings';
 import { isFullSiteEditingTheme } from 'calypso/my-sites/themes/is-full-site-editing-theme';
 import { getActiveTheme, getCanonicalTheme } from 'calypso/state/themes/selectors';
-import { Theme } from 'calypso/types';
+import { CanonicalTheme } from 'calypso/types';
 import { trackClick } from '../helpers';
 import { connectOptions } from '../theme-options';
 
@@ -30,7 +30,7 @@ interface Option {
 
 interface CurrentThemeProps {
 	blockEditorSettings: BlockEditorSettings;
-	currentTheme: Theme | null;
+	currentTheme: CanonicalTheme | null;
 	currentThemeId: string | null;
 	name: string;
 	options: Record< string, Option >;
@@ -139,7 +139,7 @@ const CurrentThemeWithOptions = ( {
 	currentTheme,
 	currentThemeId,
 }: {
-	currentTheme: Theme | null;
+	currentTheme: CanonicalTheme | null;
 	currentThemeId: string | null;
 	siteId: number;
 } ) => (
