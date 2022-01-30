@@ -5,9 +5,7 @@ import {
 	STORED_CARDS_DELETE,
 	STORED_CARDS_DELETE_COMPLETED,
 	STORED_CARDS_DELETE_FAILED,
-	STORED_CARDS_EDIT,
 	STORED_CARDS_EDIT_COMPLETED,
-	STORED_CARDS_EDIT_FAILED,
 	STORED_CARDS_FETCH,
 	STORED_CARDS_FETCH_COMPLETED,
 	STORED_CARDS_FETCH_FAILED,
@@ -83,42 +81,17 @@ export const deleteStoredCard = ( card ) => ( dispatch ) => {
 		} );
 };
 
-export const updateStoredCardTaxLocation = ( card, tax_postal_code, tax_country_code ) => (
-	dispatch
+export const updateStoredCardTaxLocation = (
+	stored_details_id,
+	tax_postal_code,
+	tax_country_code
 ) => {
-	dispatch( {
-		type: STORED_CARDS_EDIT,
-		card,
-	} );
-
-	return Promise.all(
-		card.allStoredDetailsIds.map( ( stored_details_id ) =>
-			wp.req.post(
-				{
-					path: '/me/payment-methods/' + stored_details_id + '/edit-tax-location',
-				},
-				{
-					tax_postal_code: tax_postal_code,
-					tax_country_code: tax_country_code,
-				}
-			)
-		)
-	)
-		.then( () => {
-			dispatch( {
-				type: STORED_CARDS_EDIT_COMPLETED,
-				card,
-				tax_postal_code,
-				tax_country_code,
-			} );
-		} )
-		.catch( ( error ) => {
-			dispatch( {
-				type: STORED_CARDS_EDIT_FAILED,
-				card,
-				error: error.message || i18n.translate( 'There was a problem editing the stored card.' ),
-			} );
-		} );
+	return {
+		type: STORED_CARDS_EDIT_COMPLETED,
+		stored_details_id,
+		tax_postal_code,
+		tax_country_code,
+	};
 };
 
 export const updateStoredCardIsBackupComplete = ( stored_details_id, is_backup ) => {

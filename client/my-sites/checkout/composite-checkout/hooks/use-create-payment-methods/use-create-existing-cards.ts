@@ -1,5 +1,5 @@
-import { createExistingCardMethod } from '@automattic/wpcom-checkout';
 import { useMemo } from 'react';
+import { createExistingCardMethod } from 'calypso/me/purchases/payment-methods/existing-credit-card';
 import useMemoCompare from '../use-memo-compare';
 import type { StoredCard } from '../../types/stored-cards';
 import type { StripeLoadingError } from '@automattic/calypso-stripe';
@@ -55,8 +55,6 @@ export default function useCreateExistingCards( {
 					paymentPartnerProcessorId: storedDetails.payment_partner,
 					activePayButtonText,
 					card: storedDetails,
-					tax_postal_code: storedDetails.tax_postal_code,
-					tax_country_code: storedDetails.tax_country_code,
 				} )
 			) ?? []
 		);

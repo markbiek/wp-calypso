@@ -36,8 +36,8 @@ const RenderEditFormFields = ( {
 	value?: string;
 	onChangePostalCode: unknown;
 	onChangeCountryCode: unknown;
-	postalCodeValue: string;
-	countryCodeValue: string;
+	postalCodeValue?: string;
+	countryCodeValue?: string;
 } ): JSX.Element => {
 	const countriesList = useCountryList( [] );
 	const translate = useTranslate();
