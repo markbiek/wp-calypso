@@ -120,11 +120,16 @@ export function fetchPluginsList(
 			return;
 		}
 
+		const authorPattern = /author:"(.*)"/;
+		const author = searchTerm.match( authorPattern )?.[ 1 ];
+		searchTerm = searchTerm.replace( authorPattern, '' );
+
 		return fetchWporgPluginsList( {
 			pageSize,
 			page,
 			category,
 			search: searchTerm,
+			author,
 			locale: getCurrentUserLocale( getState() ),
 		} )
 			.then( ( { info, plugins } ) => {
