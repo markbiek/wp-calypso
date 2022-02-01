@@ -1,5 +1,6 @@
 import { Button, Flex } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { close } from '@wordpress/icons';
 import minimize from '../icons/minimize';
 import type { TourStepRendererProps } from '../../../types';
 
