@@ -6,6 +6,10 @@ type TrashedMenuItems = 'Restore' | 'Copy link' | 'Delete Permanently';
 type MenuItems = TrashedMenuItems;
 
 const selectors = {
+	// General
+	placeholder: `div.is-placeholder`,
+
+	// Post Item
 	postItem: ( title: string ) => `div.post-item:has([data-e2e-title="${ title }"])`,
 
 	// Menu
@@ -29,12 +33,21 @@ export class PostsPage {
 	}
 
 	/**
+	 * Wait until the page is completely loaded.
+	 */
+	async waitUntilLoaded(): Promise< void > {
+		await this.page.waitForSelector( selectors.placeholder, { state: 'detached' } );
+	}
+
+	/**
 	 * Opens the Posts page.
 	 *
 	 * Example {@link https://wordpress.com/posts}
 	 */
 	async visit(): Promise< Response | null > {
-		return await this.page.goto( getCalypsoURL( 'posts' ) );
+		const response = await this.page.goto( getCalypsoURL( 'posts' ) );
+		await this.waitUntilLoaded();
+		return response;
 	}
 
 	/**
@@ -44,6 +57,7 @@ export class PostsPage {
 	 * @param {string} title Partial or full string of the post.
 	 */
 	async clickPost( title: string ): Promise< void > {
+		await this.waitUntilLoaded();
 		const locator = this.page.locator( selectors.postItem( title ) );
 		await locator.click();
 	}
@@ -68,7 +82,7 @@ export class PostsPage {
 	async clickMenuItem( menuItem: string ): Promise< void > {
 		const locator = this.page.locator( selectors.menuItem( menuItem ) );
 
-		// In the future, a possible idea may be to implement a following structure:
+		// {@TODO} In the future, a possible idea may be to implement a following structure:
 		// pre-process
 		// perform the menu click
 		// post-process
@@ -108,6 +122,8 @@ export class PostsPage {
 		title: string;
 		action: MenuItems;
 	} ): Promise< void > {
+		await this.waitUntilLoaded();
+
 		await this.togglePostMenu( title );
 		await this.clickMenuItem( action );
 	}
