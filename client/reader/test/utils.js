@@ -9,11 +9,6 @@ import { showSelectedPost } from '../utils';
 jest.mock( 'page', () => ( {
 	show: require( 'sinon' ).spy(),
 } ) );
-jest.mock( 'calypso/lib/redux-bridge', () => ( {
-	reduxGetState: function () {
-		return { reader: { posts: { items: {} } } };
-	},
-} ) );
 
 describe( 'reader utils', () => {
 	beforeEach( () => {
