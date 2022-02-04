@@ -134,7 +134,7 @@ describe( DataHelper.createSuiteTitle( `Editor: Advanced Post Flow` ), function 
 		} );
 
 		it( 'User is navigated to Posts > Trashed page', async function () {
-			await page.waitForURL( /.*pages\/trashed.*/, { waitUntil: 'load' } );
+			await page.waitForURL( /.*posts\/trashed.*/, { waitUntil: 'load' } );
 		} );
 
 		it( 'Confirmation notice is shown', async function () {
