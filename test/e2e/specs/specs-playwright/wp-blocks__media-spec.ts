@@ -101,6 +101,7 @@ describe( DataHelper.createSuiteTitle( 'Blocks: Media (Upload)' ), function () {
 	} );
 
 	it( 'Publish and visit post', async function () {
+		await gutenbergEditorPage.saveDraft();
 		await gutenbergEditorPage.publish( { visit: true } );
 	} );
 

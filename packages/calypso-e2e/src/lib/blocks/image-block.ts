@@ -78,7 +78,7 @@ export class ImageBlock {
 	 *
 	 * @param {string} path Path to the image file.
 	 */
-	async uploadFromModal( path: string ): Promise< void > {
+	async uploadFromModal( path: string ): Promise< ElementHandle > {
 		const frame = ( await this.block.ownerFrame() ) as Frame;
 		const page = frame.page();
 
@@ -88,6 +88,8 @@ export class ImageBlock {
 		const mediaPage = new MediaPage( page );
 		await mediaPage.upload( path );
 		await mediaPage.clickModalButton( 'Confirm' );
+		await this.waitUntilUploaded();
+		return await this.getImage();
 	}
 
 	/**

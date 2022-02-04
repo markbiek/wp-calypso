@@ -187,6 +187,7 @@ export class MediaPage {
 	 * @param action
 	 */
 	async clickModalButton( action: ModalAction ): Promise< void > {
-		await this.page.click( selectors.modalActionButton( action ) );
+		const locator = this.page.locator( selectors.modalActionButton( action ) );
+		await locator.click();
 	}
 }

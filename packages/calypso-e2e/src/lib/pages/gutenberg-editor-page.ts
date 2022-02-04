@@ -33,6 +33,7 @@ const selectors = {
 	settingsToggle: '.edit-post-header__settings .interface-pinned-items button:first-child',
 	closeSettingsButton: 'button[aria-label="Close settings"]:visible',
 	saveDraftButton: '.editor-post-save-draft',
+	saveDraftDisabledButton: 'button.editor-post-saved-state.is-saved[aria-disabled="true"]',
 	previewButton: ':is(button:text("Preview"), a:text("Preview"))',
 	publishButton: ( parentSelector: string ) =>
 		`${ parentSelector } button:text("Publish")[aria-disabled=false]`,
@@ -47,7 +48,7 @@ const selectors = {
 	// corner. This addresses the bug where the post-publish panel is immediately
 	// closed when publishing with certain blocks on the editor canvas.
 	// See https://github.com/Automattic/wp-calypso/issues/54421.
-	viewButton: 'text=/View (Post|Page)/',
+	viewButton: 'div.editor-post-publish-panel a.components-button.is-primary',
 	addNewButton: '.editor-post-publish-panel a:text-matches("Add a New P(ost|age)")',
 	closePublishPanel: 'button[aria-label="Close panel"]',
 
@@ -309,8 +310,11 @@ export class GutenbergEditorPage {
 		// Confirm the block has been added to the editor body.
 		const elementHandle = await frame.waitForSelector( `${ blockEditorSelector }.is-selected` );
 
-		// Dismiss the block inserter.
-		await frame.click( selectors.blockInserterToggle );
+		// Dismiss the block inserter if viewport is larger than mobile.
+		// In mobile, the block inserter will auto-close.
+		if ( envVariables.VIEWPORT_NAME !== 'mobile' ) {
+			await frame.click( selectors.blockInserterToggle );
+		}
 
 		return elementHandle;
 	}
@@ -462,10 +466,8 @@ export class GutenbergEditorPage {
 		const frame = await this.getEditorFrame();
 
 		await frame.click( selectors.saveDraftButton );
-		// Once the Save draft button is clicked, buttons on the post toolbar
-		// are disabled while the post is saved. Wait for the state of
-		// Publish button to return to 'enabled' before proceeding.
-		await frame.waitForSelector( selectors.publishButton( selectors.postToolbar ) );
+		// Wait for the Save Draft button to become disabled.
+		await frame.waitForSelector( selectors.saveDraftDisabledButton );
 	}
 
 	/**
