@@ -8,9 +8,10 @@ interface ConfigurationData {
 
 const blockParentSelector = 'div[aria-label="Block: OpenTable"]';
 const selectors = {
-	// Search
+	// Editor
 	searchInput: `${ blockParentSelector } input`,
 	suggestion: ( name: string ) => `${ blockParentSelector } strong:has-text("${ name }")`,
+	openTableLogo: 'div[title="Powered By OpenTable"]',
 
 	// Button
 	embedButton: `${ blockParentSelector } button[type="submit"]`,
@@ -44,6 +45,15 @@ export class OpenTableFlow implements BlockFlow {
 		await context.editorIframe.fill( selectors.searchInput, restaurant );
 		await context.editorIframe.click( selectors.suggestion( restaurant ) );
 		await context.editorIframe.click( selectors.embedButton );
+
+		// Wait until the block is fully rendered prior to next steps such as publishing.
+		// Alternatively, save as draft works here.
+		// See: https://github.com/Automattic/wp-calypso/issues/50302
+		const openTableFrameHandle = await context.editorIframe.waitForSelector(
+			`${ blockParentSelector } iframe`
+		);
+		const openTableFrame = ( await openTableFrameHandle.contentFrame() ) as Frame;
+		await openTableFrame.waitForSelector( selectors.openTableLogo );
 	}
 
 	/**
