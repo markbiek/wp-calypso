@@ -46,8 +46,9 @@ const LandingPage: React.FunctionComponent< Props > = ( { siteId } ) => {
 		} );
 
 		return page(
-			addQueryArgs( `/start/woocommerce-install/?site=${ wpcomDomain }`, {
+			addQueryArgs( '/start/woocommerce-install', {
 				back_to: `/woocommerce-installation/${ wpcomDomain }`,
+				site: wpcomDomain,
 			} )
 		);
 	}
