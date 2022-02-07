@@ -17,6 +17,7 @@ export interface WooCommerceInstallProps {
 	signupDependencies: {
 		site: string;
 		siteConfirmed?: number;
+		back_to?: string;
 	};
 }
 
