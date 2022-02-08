@@ -625,6 +625,15 @@ object Translate : BuildType({
 			"""
 		}
 	}
+
+	triggers {
+		vcs {
+			branchFilter = """
+			+:*
+			-:pull*
+		""".trimIndent()
+		}
+	}
 })
 
 fun playwrightPrBuildType( targetDevice: String, buildUuid: String ): E2EBuildType {
